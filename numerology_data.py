@@ -1,4 +1,3 @@
-
 # numerology_data.py
 
 RULING_NUMBERS = {
@@ -13,6 +12,21 @@ RULING_NUMBERS = {
     "10": "Ruling Number 10 indicates a dynamic, highly adaptable individual with strong leadership potential or deep superficiality.",
     "11": "Ruling Number 11 is a highly spiritual vibration bringing enhanced intuition, sensitivity, and psychic potential.",
     "22/4": "The Master Number 22/4 is the 'Master Builder.' It holds immense physical capability guided by high spiritual vision."
+}
+
+# --- 💼 NEW DATA SECTION: DR. DAVID PHILLIPS VOCATIONAL LANES ---
+VOCATIONS = {
+    "2": "Diplomacy, mediation, administrative support, human resources, counseling, and fields requiring deep empathy without heavy commercial pressure.",
+    "3": "Academia, professional writing, journalism, science, data analysis, planning, strategic management, and public speaking.",
+    "4": "Architecture, structural engineering, accounting, operations management, construction, specialized trades, and organizational leadership.",
+    "5": "Arts and entertainment, travel industries, sales, public relations, design, performance, and creative entrepreneurship.",
+    "6": "Healing arts, medicine, nursing, teaching, humanitarian roles, home design, fine arts, and community management.",
+    "7": "Research science, philosophy, law, legal analysis, teaching, spiritual guidance, and technical troubleshooting.",
+    "8": "Independent business ownership, artistic direction, financial planning, independent consulting, and organizational oversight.",
+    "9": "Public service, politics, global human rights work, structural philosophy, large-scale arts, and educational leadership.",
+    "10": "Sales leadership, corporate executive roles, performance art, dynamic public-facing fields, and venture design.",
+    "11": "Spiritual leadership, alternative medicine, deep psychology, inspiring cultural roles, and intuitive educational development.",
+    "22/4": "Large-scale real estate development, infrastructure engineering, political leadership, institutional building, and global entrepreneurship."
 }
 
 EXPRESSION_NUMBERS = {
