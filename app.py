@@ -11,13 +11,13 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- 🌌 HIGH-CONTRAST COSMIC STYLE INJECTION ---
+# --- 🌌 COMPREHENSIVE TEXT VISIBILITY & FRAMEWORK OVERRIDE ---
 st.markdown(
     """
     <style>
-    /* Direct block background override to deep space navy */
+    /* Direct block background canvas override */
     .stApp {
-        background-color: #0d0b21 !important;
+        background-color: #0b081a !important;
     }
     
     /* Global high-visibility text rules */
@@ -32,7 +32,7 @@ st.markdown(
         line-height: 1.6 !important;
     }
     
-    /* Clean, high-contrast input form layout container */
+    /* Input form layout box outline */
     [data-testid="stForm"] {
         background-color: #120e2b !important;
         border: 2px solid #5a3d96 !important;
@@ -40,46 +40,47 @@ st.markdown(
         padding: 20px !important;
     }
 
-    /* 🧱 FIXING THE FULL NAME INPUT TEXT BOX */
+    /* 🧱 NAME TEXT BOX ACCENT */
     .stTextInput input, input[type="text"] {
-        color: #ffffff !important; /* Crisp white typing text */
-        background-color: #1b163d !important; /* Deep contrast dark purple background */
+        color: #ffffff !important;
+        background-color: #1b163d !important;
         border: 2px solid #7d5bb5 !important;
         border-radius: 6px !important;
         -webkit-text-fill-color: #ffffff !important;
         font-weight: 600 !important;
     }
 
-    /* 🧱 FIXING THE DATE PICKER INPUT BOX */
-    .stDateInput div[data-baseweb="input"], .stDateInput input {
-        background-color: #1b163d !important; /* Matching deep dark contrast purple background */
+    /* 📅 100% RELIABLE DATE PICKER BOX ACCENT OVERRIDE */
+    div[data-testid="stDateInput"] div {
+        background-color: #4b1a8a !important; /* Spiritual Purple Fill */
+        border: 1px solid #9966ff !important;
         border-radius: 6px !important;
     }
     
-    .stDateInput input {
-        color: #ffffff !important; /* Crisp white text so it stands out flawlessly */
-        border: 2px solid #7d5bb5 !important;
+    /* Force the text elements inside that specific calendar wrapper block to be clear white */
+    div[data-testid="stDateInput"] input {
+        color: #ffffff !important; /* Bright white date digits */
+        background-color: transparent !important;
         -webkit-text-fill-color: #ffffff !important;
         font-weight: 600 !important;
-        font-size: 1.05rem !important;
     }
 
-    /* ENTER BUTTON OVERRIDE: Rich purple background fill with clean white text */
-    button[data-testid="stFormSubmitButton"] {
-        background-color: #4b1a8a !important;
-        color: #ffffff !important;
-        border: 1px solid #9966ff !important;
+    /* 🔮 100% RELIABLE CAST/ENTER BUTTON OVERRIDE */
+    button[data-testid="baseButton-formSubmit"] {
+        background-color: #4b1a8a !important; /* Spiritual Purple Fill */
+        color: #ffffff !important; /* Crisp white button text and emoji */
+        border: 2px solid #9966ff !important;
         border-radius: 8px !important;
         font-weight: bold !important;
         padding: 10px 20px !important;
+        box-shadow: 0 0 12px rgba(153, 102, 255, 0.4) !important;
         transition: all 0.3s ease !important;
-        box-shadow: 0 0 10px rgba(153, 102, 255, 0.4) !important;
     }
 
-    button[data-testid="stFormSubmitButton"]:hover {
+    button[data-testid="baseButton-formSubmit"]:hover {
         background-color: #6622cc !important;
         border-color: #b388ff !important;
-        box-shadow: 0 0 15px rgba(179, 136, 255, 0.7) !important;
+        box-shadow: 0 0 18px rgba(179, 136, 255, 0.7) !important;
     }
 
     /* Clean Structural 3x3 Chart Blocks */
