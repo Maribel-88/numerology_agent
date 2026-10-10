@@ -40,7 +40,7 @@ st.markdown(
         padding: 20px !important;
     }
 
-    /* 🌟 NAME TEXT BOX SPECIFIC OVERRIDE: Bright white text on dark violet fill */
+    /* NAME TEXT BOX SPECIFIC OVERRIDE: Bright white text on dark violet fill */
     .stTextInput input, input[type="text"] {
         color: #ffffff !important;
         background-color: #1b163d !important;
@@ -49,21 +49,21 @@ st.markdown(
         font-weight: 600 !important;
     }
 
-    /* 🌟 DATE PICKER OVERRIDE: Rich purple background fill with clear white text */
-    input[type="date"], .stDateInput div[data-baseweb="input"] {
+    /* DATE PICKER OVERRIDE: Rich purple background fill with clear white text components */
+    .stDateInput div[data-baseweb="input"] {
         background-color: #4b1a8a !important;
         border: 1px solid #9966ff !important;
         border-radius: 6px !important;
     }
     
-    /* Ensure the text typed/shown inside the purple date box remains white */
-    input[type="date"] {
-        color: #ffffff !important;
-        -webkit-text-fill-color: #ffffff !important;
-        font-weight: 600 !important;
+    /* 🌟 CRITICAL FIX: Explicitly force the text values inside the date picker to be RED */
+    input[type="date"], .stDateInput input, div[data-baseweb="input"] div {
+        color: #ff3333 !important; /* Vivid Neon Red text */
+        -webkit-text-fill-color: #ff3333 !important; /* Fix for chrome/safari web engine overrides */
+        font-weight: 700 !important;
     }
 
-    /* 🌟 ENTER BUTTON OVERRIDE: Rich purple background fill with gold/white transitions */
+    /* ENTER BUTTON OVERRIDE: Rich purple background fill with gold/white transitions */
     button[data-testid="stFormSubmitButton"] {
         background-color: #4b1a8a !important;
         color: #ffffff !important;
@@ -82,7 +82,7 @@ st.markdown(
         box-shadow: 0 0 15px rgba(179, 136, 255, 0.7) !important;
     }
 
-    /* 📊 Clean Structural 3x3 Chart Blocks */
+    /* Clean Structural 3x3 Chart Blocks */
     .matrix-box {
         background: #19143a !important;
         border: 2px solid #8a2be2 !important;
