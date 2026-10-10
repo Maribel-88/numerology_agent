@@ -97,25 +97,52 @@ def calculate_name_matrix(full_name: str) -> dict:
         "personality": reduce_name_number(personality_total)
     }
 
-# 🌟 THE PERSONAL YEAR CALCULATOR MATHEMATICAL LOGIC
 def calculate_personal_year(birth_date_str: str, target_year: int) -> str:
-    """Combines birth day, birth month, and target calendar year to find the cycle score."""
     digits = clean_date(birth_date_str)
     if len(digits) < 4:
         return "1"
-    
-    # Extract structural day and month digits
     day = int(digits[0:2])
     month = int(digits[2:4])
-    
     total = day + month + target_year
-    
     if total == 11 or total == 22:
         return str(total)
-        
     while total > 9:
         total = sum(int(d) for d in str(total))
         if total == 11 or total == 22:
             return str(total)
-            
     return str(total)
+
+# 🌟 NEW: Tropical Zodiac Alignment Logic Method
+def get_zodiac_sign(date_str: str) -> dict:
+    """Evaluates the day and month parameters to deduce the sun sign and astrological element."""
+    digits = clean_date(date_str)
+    if len(digits) < 4:
+        return {"sign": "Unknown", "element": "Unknown", "emoji": "✨"}
+        
+    day = int(digits[0:2])
+    month = int(digits[2:4])
+    
+    if (month == 3 and day >= 21) or (month == 4 and day <= 19):
+        return {"sign": "Aries", "element": "Fire", "emoji": "♈"}
+    elif (month == 4 and day >= 20) or (month == 5 and day <= 20):
+        return {"sign": "Taurus", "element": "Earth", "emoji": "♉"}
+    elif (month == 5 and day >= 21) or (month == 6 and day <= 20):
+        return {"sign": "Gemini", "element": "Air", "emoji": "♊"}
+    elif (month == 6 and day >= 21) or (month == 7 and day <= 22):
+        return {"sign": "Cancer", "element": "Water", "emoji": "♋"}
+    elif (month == 7 and day >= 23) or (month == 8 and day <= 22):
+        return {"sign": "Leo", "element": "Fire", "emoji": "♌"}
+    elif (month == 8 and day >= 23) or (month == 9 and day <= 22):
+        return {"sign": "Virgo", "element": "Earth", "emoji": "♍"}
+    elif (month == 9 and day >= 23) or (month == 10 and day <= 22):
+        return {"sign": "Libra", "element": "Air", "emoji": "♎"}
+    elif (month == 10 and day >= 23) or (month == 11 and day <= 21):
+        return {"sign": "Scorpio", "element": "Water", "emoji": "♏"}
+    elif (month == 11 and day >= 22) or (month == 12 and day <= 21):
+        return {"sign": "Sagittarius", "element": "Fire", "emoji": "♐"}
+    elif (month == 12 and day >= 22) or (month == 1 and day <= 19):
+        return {"sign": "Capricorn", "element": "Earth", "emoji": "♑"}
+    elif (month == 1 and day >= 20) or (month == 2 and day <= 18):
+        return {"sign": "Aquarius", "element": "Air", "emoji": "♒"}
+    else:
+        return {"sign": "Pisces", "element": "Water", "emoji": "♓"}

@@ -1,7 +1,7 @@
 # app.py
 import streamlit as st
 from build_db import generate_gemini_numerology_reading
-from numerology_engine import get_full_profile, calculate_personal_year
+from numerology_engine import get_full_profile, calculate_personal_year, get_zodiac_sign  # Added zodiac function
 from pdf_generator import create_numerology_pdf
 import numerology_data
 from datetime import datetime
@@ -88,6 +88,15 @@ st.markdown(
         margin-top: 15px !important;
         box-shadow: 0 4px 15px rgba(255, 0, 255, 0.1) !important;
     }
+    /* 🔮 NEW: Styled callout card for your Zodiac Sign */
+    .zodiac-box {
+        background: linear-gradient(90deg, #0e2042 0%, #152e5c 100%) !important;
+        border-left: 5px solid #00ffff !important;
+        padding: 15px 20px !important;
+        border-radius: 8px !important;
+        margin-bottom: 20px !important;
+        box-shadow: 0 4px 15px rgba(0, 255, 255, 0.1) !important;
+    }
     </style>
     """,
     unsafe_allow_html=True
@@ -136,9 +145,24 @@ if submit_button:
 if st.session_state.reading_cache:
     st.divider()
     
-    # 🌟 DISPLAY PERSONAL YEAR TRACKER
-    st.write("### 📅 Your Personal Year Cycle Forecast")
+    # 🌟 NEW FEATURE LAYER: ZODIAC ELEMENT ELEMENT GRID INFOCARD
+    zodiac_profile = get_zodiac_sign(st.session_state.cached_date)
     
+    st.markdown(
+        f"""
+        <div class="zodiac-box">
+            <h4 style='margin-top:0; color:#ccffff !important;'>✨ ASTROLOGICAL ALIGNMENT DETECTED</h4>
+            <p style='font-size:1.2rem; margin:0; color:#ffffff !important;'>
+                Your Sun Sign: <b>{zodiac_profile['emoji']} {zodiac_profile['sign']}</b> 
+                <span style='margin-left:15px; font-size:0.95rem; color:#a3e6ff !important;'>Element: <b>{zodiac_profile['element']}</b></span>
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    
+    # --- Personal Year Cycle Forecast ---
+    st.write("### 📅 Your Personal Year Cycle Forecast")
     target_year = st.slider("Select Target Year to Forecast:", min_value=2020, max_value=2035, value=2026, step=1)
     
     py_num = calculate_personal_year(st.session_state.cached_date, target_year)
