@@ -12,36 +12,126 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- 🌌 HIGH-CONTRAST COSMIC STYLE INJECTION ---
+# --- 🌌 COMPREHENSIVE TEXT VISIBILITY & FRAMEWORK OVERRIDE ---
 st.markdown(
     """
     <style>
-    .stApp { background-color: #0b081a !important; }
-    h1, h2, h3, h4, h5, h6, label, p, span { color: #f1ecff !important; }
+    /* Direct block background canvas override */
+    .stApp {
+        background-color: #0b081a !important;
+    }
+    
+    /* FIXING THE SIDEBAR COLORING & TEXT ACCENTS */
+    section[data-testid="stSidebar"] {
+        background-color: #120e2b !important;
+        border-right: 1px solid rgba(147, 112, 219, 0.3) !important;
+    }
+    
+    section[data-testid="stSidebar"] p, section[data-testid="stSidebar"] span, section[data-testid="stSidebar"] label {
+        color: #f1ecff !important;
+    }
+    
+    /* Global high-visibility text rules */
+    h1, h2, h3, h4, h5, h6, label, p, span {
+        color: #f1ecff !important;
+    }
+
+    /* Target reading block output texts explicitly */
     [data-testid="stMarkdownContainer"] p, [data-testid="stMarkdownContainer"] li {
-        color: #ffffff !important; font-size: 1.05rem !important; line-height: 1.6 !important;
+        color: #ffffff !important;
+        font-size: 1.05rem !important;
+        line-height: 1.6 !important;
     }
+    
+    /* Input form layout box outline */
     [data-testid="stForm"] {
-        background-color: #120e2b !important; border: 2px solid #5a3d96 !important; border-radius: 12px !important; padding: 20px !important;
+        background-color: #120e2b !important;
+        border: 2px solid #5a3d96 !important;
+        border-radius: 12px !important;
+        padding: 20px !important;
     }
+
+    /* NAME TEXT BOX ACCENT */
     .stTextInput input, input[type="text"] {
-        color: #ffffff !important; background-color: #1b163d !important; border: 1px solid #7d5bb5 !important; border-radius: 6px !important; font-weight: 600 !important;
+        color: #ffffff !important;
+        background-color: #1b163d !important;
+        border: 1px solid #7d5bb5 !important;
+        border-radius: 6px !important;
+        -webkit-text-fill-color: #ffffff !important;
+        font-weight: 600 !important;
     }
-    div[data-testid="stDateInput"] div { background-color: #1b163d !important; border: 2px solid #7d5bb5 !important; border-radius: 6px !important; }
-    div[data-testid="stDateInput"] input { color: #ffffff !important; background-color: transparent !important; font-weight: 600 !important; }
+
+    /* DATE PICKER BOX ACCENT OVERRIDE */
+    div[data-testid="stDateInput"] div {
+        background-color: #1b163d !important;
+        border: 1px solid #7d5bb5 !important;
+        border-radius: 6px !important;
+    }
+    
+    div[data-testid="stDateInput"] input {
+        color: #ffffff !important;
+        background-color: transparent !important;
+        -webkit-text-fill-color: #ffffff !important;
+        font-weight: 600 !important;
+    }
+
+    /* FIXING THE CAST/ENTER BUTTON STYLING AND ICON COLOR */
     button[data-testid="baseButton-formSubmit"] {
-        background-color: #4b1a8a !important; color: #ffffff !important; border: 2px solid #9966ff !important; border-radius: 8px !important; font-weight: bold !important;
+        background: linear-gradient(90deg, #4b1a8a 0%, #6622cc 100%) !important;
+        color: #ffffff !important;
+        border: 1px solid #9966ff !important;
+        border-radius: 8px !important;
+        font-weight: bold !important;
+        padding: 10px 20px !important;
+        box-shadow: 0 0 12px rgba(153, 102, 255, 0.4) !important;
+        transition: all 0.3s ease !important;
     }
-    .matrix-box {
-        background: #19143a !important; border: 2px solid #8a2be2 !important; border-radius: 12px !important; padding: 15px !important; text-align: center !important; margin-bottom: 10px !important;
+    
+    button[data-testid="baseButton-formSubmit"] p, button[data-testid="baseButton-formSubmit"] span {
+        color: #ffffff !important;
     }
-    .matrix-label { font-size: 0.85rem !important; color: #b3a7ff !important; text-transform: uppercase !important; font-weight: bold !important; }
-    .matrix-value { font-size: 2.0rem !important; font-weight: 800 !important; color: #00ffff !important; }
-    .year-box, .zodiac-box {
-        background: linear-gradient(90deg, #1f1440 0%, #29124d 100%) !important; border-left: 5px solid #ff00ff !important; padding: 20px !important; border-radius: 8px !important; margin-top: 15px !important; box-shadow: 0 4px 15px rgba(255, 0, 255, 0.1) !important;
+
+    button[data-testid="baseButton-formSubmit"]:hover {
+        background: linear-gradient(90deg, #5a24a3 0%, #7733ee 100%) !important;
+        border-color: #b388ff !important;
+        box-shadow: 0 0 18px rgba(179, 136, 255, 0.7) !important;
     }
+
+    /* Tab Styling Overrides */
     button[data-baseweb="tab"] { color: #b3a7ff !important; font-weight: 600 !important; }
     button[data-baseweb="tab"][aria-selected="true"] { color: #00ffff !important; border-bottom-color: #00ffff !important; }
+
+    /* Clean Structural 3x3 Chart Blocks */
+    .matrix-box {
+        background: #19143a !important;
+        border: 2px solid #8a2be2 !important;
+        border-radius: 12px !important;
+        padding: 15px !important;
+        text-align: center !important;
+        margin-bottom: 10px !important;
+    }
+
+    .matrix-label {
+        font-size: 0.85rem !important;
+        color: #b3a7ff !important;
+        text-transform: uppercase !important;
+        font-weight: bold !important;
+    }
+
+    .matrix-value {
+        font-size: 2.0rem !important;
+        font-weight: 800 !important;
+        color: #00ffff !important; 
+    }
+    
+    .year-box, .zodiac-box {
+        background: linear-gradient(90deg, #1f1440 0%, #29124d 100%) !important; 
+        border-left: 5px solid #ff00ff !important; 
+        padding: 20px !important; 
+        border-radius: 8px !important; 
+        margin-top: 15px !important; 
+        box-shadow: 0 4px 15px rgba(255, 0, 255, 0.1) !important;
+    }
     </style>
     """,
     unsafe_allow_html=True
@@ -50,12 +140,12 @@ st.markdown(
 st.title("🔮 CosmicVibe Advanced AI Agent")
 st.write("Unlock your unique Pythagorean configurations and interpersonal matrix structures.")
 
-# --- 🌟 BRAND NEW: SIDEBAR LANGUAGE MENU WIDGET ---
+# --- SIDEBAR LANGUAGE MENU WIDGET ---
 with st.sidebar:
     st.write("### 🌐 Language Hub")
     selected_language = st.selectbox(
         "Choose Presentation Language:",
-        options=["English", "Español (Spanish)", "Français (French)", "Tagalog", "Deutsch (German)", "Italiano (Italian)"],
+        options=["English", "Español (Spanish)", "Français (French)", "Filipino", "Deutsch (German)", "Italiano (Italian)"],
         index=0
     )
     st.divider()
@@ -82,7 +172,6 @@ with tab1:
         else:
             formatted_date = selected_date.strftime("%d/%m/%Y")
             with st.spinner("Decoding cosmic grids..."):
-                # Pass the selected language variable into your processing engine function
                 reading_output = generate_gemini_numerology_reading(formatted_date, full_name_input, selected_language)
                 st.session_state.reading_cache = reading_output
                 st.session_state.cached_name = full_name_input
@@ -131,7 +220,8 @@ with tab1:
 
 # ================= TAB 2: DUAL MATRIX COMPATIBILITY LAYER =================
 with tab2:
-    if "comp_cache" not in st.session_state: st.session_state.comp_cache = None
+    if "comp_cache" not in st.session_state: 
+        st.session_state.comp_cache = None
     
     st.write("### 👥 Calculate Dual Matrix Intersections")
     st.write("Examine how your numbers blend, collide, and support another person's matrix paths.")
@@ -150,14 +240,13 @@ with tab2:
         submit_comp = st.form_submit_button("Calculate Aligned Intersection Matrix ⚡", use_container_width=True)
         
     if submit_comp:
-        if not name1_in.strip or not name2_in.strip():
+        if not name1_in.strip() or not name2_in.strip():
             st.warning("⚠️ Please provide full birth names for both profiles to trigger comparison.")
         else:
             d1_fmt = date1_in.strftime("%d/%m/%Y")
             d2_fmt = date2_in.strftime("%d/%m/%Y")
             
             with st.spinner("Weaving comparative data pathways..."):
-                # Pass the selected language variable into your compatibility core engine
                 comp_output = generate_gemini_compatibility_reading(name1_in, d1_fmt, name2_in, d2_fmt, selected_language)
                 st.session_state.comp_cache = comp_output
 
@@ -167,3 +256,4 @@ with tab2:
         st.markdown(st.session_state.comp_cache)
 
 st.caption("Powered by Google Gemini 3.8 Flash & Your Custom Pythagorean Local Engine.")
+
