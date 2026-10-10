@@ -23,10 +23,10 @@ st.markdown(
     
     /* Input form layout box styling */
     [data-testid="stForm"] {
-        background-color: rgba(25, 20, 55, 0.45) !important;
-        border: 1px solid rgba(147, 112, 219, 0.3) !important;
+        background-color: rgba(25, 20, 55, 0.55) !important;
+        border: 1px solid rgba(147, 112, 219, 0.4) !important;
         border-radius: 12px !important;
-        box-shadow: 0 4px 20px rgba(147, 112, 219, 0.1) !important;
+        box-shadow: 0 4px 20px rgba(147, 112, 219, 0.15) !important;
     }
 
     /* Headings adjustments */
@@ -34,10 +34,24 @@ st.markdown(
         color: #f1ecff !important;
     }
 
-    /* Target the text inputs specifically to make them legible */
-    input, div[data-baseweb="input"] {
-        background-color: #1a163a !important;
-        color: #ffffff !important;
+    /* 🌟 CRITICAL FIX: Target input text boxes, date pickers, and their text streams */
+    input[type="text"], input[type="date"], .stTextInput input, div[data-baseweb="input"] input {
+        color: #ffffff !important; /* Forces typed text to be bright white */
+        background-color: #17123a !important; /* Deep dark purple input background */
+        -webkit-text-fill-color: #ffffff !important; /* Fix for safari/chrome text overrides */
+        font-weight: 500 !important;
+    }
+
+    /* Force the placeholder text to be a legible muted lavender */
+    input::placeholder {
+        color: #a399e6 !important;
+        opacity: 1;
+    }
+
+    /* Add a glowing neon purple border when clicking inside an input box */
+    input:focus, div[data-baseweb="input"]:focus-within {
+        border-color: #bf8aff !important;
+        box-shadow: 0 0 10px rgba(191, 138, 255, 0.6) !important;
     }
 
     /* Custom classes for the 3x3 Grid Containers with Neon Purple Glow */
