@@ -21,14 +21,25 @@ st.markdown(
         background-color: #0b081a !important;
     }
     
+    /* 🌟 CRITICAL FIX: FORCE THE STARK WHITE TOP HEADER BAR TO DARK COSMIC BACKGROUND */
+    header[data-testid="stHeader"] {
+        background-color: #0b081a !important; /* Matches main deep space background */
+        border-bottom: 1px solid rgba(147, 112, 219, 0.2) !important;
+    }
+    
+    /* Force top toolbar text labels and icons to stay highly visible */
+    header[data-testid="stHeader"] a, header[data-testid="stHeader"] span, header[data-testid="stHeader"] button {
+        color: #f1ecff !important;
+    }
+    
     /* FIXING THE SIDEBAR COLORING & TEXT ACCENTS */
     section[data-testid="stSidebar"] {
-        background-color: #120e2b !important;
+        background-color: #120e2b !important; /* Deep dark purple sidebar background */
         border-right: 1px solid rgba(147, 112, 219, 0.3) !important;
     }
     
     section[data-testid="stSidebar"] p, section[data-testid="stSidebar"] span, section[data-testid="stSidebar"] label {
-        color: #f1ecff !important;
+        color: #f1ecff !important; /* Forces sidebar labels to be clear and readable */
     }
     
     /* Global high-visibility text rules */
@@ -78,7 +89,7 @@ st.markdown(
     /* FIXING THE CAST/ENTER BUTTON STYLING AND ICON COLOR */
     button[data-testid="baseButton-formSubmit"] {
         background: linear-gradient(90deg, #4b1a8a 0%, #6622cc 100%) !important;
-        color: #ffffff !important;
+        color: #ffffff !important; /* Crisp white button text */
         border: 1px solid #9966ff !important;
         border-radius: 8px !important;
         font-weight: bold !important;
@@ -87,6 +98,7 @@ st.markdown(
         transition: all 0.3s ease !important;
     }
     
+    /* Force the button text/emoji inside to stay white instead of gray */
     button[data-testid="baseButton-formSubmit"] p, button[data-testid="baseButton-formSubmit"] span {
         color: #ffffff !important;
     }
@@ -97,9 +109,25 @@ st.markdown(
         box-shadow: 0 0 18px rgba(179, 136, 255, 0.7) !important;
     }
 
-    /* Tab Styling Overrides */
-    button[data-baseweb="tab"] { color: #b3a7ff !important; font-weight: 600 !important; }
-    button[data-baseweb="tab"][aria-selected="true"] { color: #00ffff !important; border-bottom-color: #00ffff !important; }
+    /* TAB NAVIGATION BAR TEXT VISIBILITY OVERRIDES */
+    div[data-testid="stTabs"] button [data-testid="stMarkdownContainer"] p {
+        color: #c4bbff !important; /* Forces INACTIVE tab text to be light visible purple-gray */
+        font-weight: 600 !important;
+        font-size: 1.0rem !important;
+    }
+    
+    div[data-testid="stTabs"] button[aria-selected="true"] [data-testid="stMarkdownContainer"] p {
+        color: #00ffff !important; /* Forces ACTIVE tab text to be high-contrast glowing cyan */
+        text-shadow: 0 0 8px rgba(0, 255, 255, 0.5) !important;
+    }
+    
+    /* Border underline alignment logic for the navigation bar tabs */
+    div[data-testid="stTabs"] button {
+        border-bottom: 2px solid rgba(147, 112, 219, 0.2) !important;
+    }
+    div[data-testid="stTabs"] button[aria-selected="true"] {
+        border-bottom: 2px solid #00ffff !important;
+    }
 
     /* Clean Structural 3x3 Chart Blocks */
     .matrix-box {
@@ -156,9 +184,12 @@ tab1, tab2 = st.tabs(["👤 Individual Blueprint", "👥 Relationship Compatibil
 
 # ================= TAB 1: INDIVIDUAL BLUEPRINT ENGINE =================
 with tab1:
-    if "reading_cache" not in st.session_state: st.session_state.reading_cache = None
-    if "cached_name" not in st.session_state: st.session_state.cached_name = ""
-    if "cached_date" not in st.session_state: st.session_state.cached_date = ""
+    if "reading_cache" not in st.session_state: 
+        st.session_state.reading_cache = None
+    if "cached_name" not in st.session_state: 
+        st.session_state.cached_name = ""
+    if "cached_date" not in st.session_state: 
+        st.session_state.cached_date = ""
 
     with st.form("numerology_form"):
         full_name_input = st.text_input("Your Full Birth Name (First, Middle, Last):", placeholder="e.g., JOHN BENJAMIN SMITH")
@@ -179,6 +210,7 @@ with tab1:
 
     if st.session_state.reading_cache:
         st.divider()
+        
         # Render Zodiac Box
         z_profile = get_zodiac_sign(st.session_state.cached_date)
         st.markdown(f'<div class="zodiac-box"><h4 style="margin:0; color:#00ffff !important;">✨ {z_profile["emoji"]} SUN SIGN: {z_profile["sign"].upper()} (Element: {z_profile["element"]})</h4></div>', unsafe_allow_html=True)
@@ -191,69 +223,38 @@ with tab1:
         st.markdown(f'<div class="year-box"><p style="margin:0; font-weight:bold; color:#ff00ff !important;">Personal Year Number: {py_num}</p><p style="margin:5px 0 0 0; font-style:italic;">{py_meaning}</p></div>', unsafe_allow_html=True)
         
         st.divider()
+        
         # Render 3x3 Grid
         st.write("### 📊 Your Pythagorean Birth Chart Grid")
         raw_profile = get_full_profile(st.session_state.cached_date)
         grid_data = raw_profile.get("birth_chart_grid", {i: 0 for i in range(1, 10)})
-        def make_cell(num): return str(num) * grid_data.get(num, 0) if grid_data.get(num, 0) > 0 else "-"
-        def render_glow_box(label, value): st.markdown(f'<div class="matrix-box"><div class="matrix-label">{label}</div><div class="matrix-value">{value}</div></div>', unsafe_allow_html=True)
+        
+        def make_cell(num): 
+            return str(num) * grid_data.get(num, 0) if grid_data.get(num, 0) > 0 else "-"
+            
+        def render_glow_box(label, value): 
+            st.markdown(f'<div class="matrix-box"><div class="matrix-label">{label}</div><div class="matrix-value">{value}</div></div>', unsafe_allow_html=True)
         
         r1_c1, r1_c2, r1_c3 = st.columns(3)
         with r1_c1: render_glow_box("Mind (3)", make_cell(3))
         with r1_c2: render_glow_box("Mind (6)", make_cell(6))
         with r1_c3: render_glow_box("Mind (9)", make_cell(9))
+        
         r2_c1, r2_c2, r2_c3 = st.columns(3)
         with r2_c1: render_glow_box("Soul (2)", make_cell(2))
         with r2_c2: render_glow_box("Soul (5)", make_cell(5))
         with r2_c3: render_glow_box("Soul (8)", make_cell(8))
+        
         r3_c1, r3_c2, r3_c3 = st.columns(3)
         with r3_c1: render_glow_box("Physical (1)", make_cell(1))
         with r3_c2: render_glow_box("Physical (4)", make_cell(4))
         with r3_c3: render_glow_box("Physical (7)", make_cell(7))
         
         st.divider()
+        
         # Export PDF Setup
         pdf_data = create_numerology_pdf(st.session_state.cached_name, st.session_state.cached_date, st.session_state.reading_cache)
         st.download_button(label="Download Professional PDF Report 📄", data=bytes(pdf_data), file_name=f"Report_{st.session_state.cached_name.replace(' ', '_')}.pdf", mime="application/pdf", use_container_width=True)
+        
         st.divider()
         st.markdown(st.session_state.reading_cache)
-
-# ================= TAB 2: DUAL MATRIX COMPATIBILITY LAYER =================
-with tab2:
-    if "comp_cache" not in st.session_state: 
-        st.session_state.comp_cache = None
-    
-    st.write("### 👥 Calculate Dual Matrix Intersections")
-    st.write("Examine how your numbers blend, collide, and support another person's matrix paths.")
-    
-    with st.form("compatibility_form"):
-        col1, col2 = st.columns(2)
-        with col1:
-            st.write("#### Person 1 (You)")
-            name1_in = st.text_input("First Person Full Name:", key="n1")
-            date1_in = st.date_input("First Person Birthday:", value=datetime(1985, 5, 12), key="d1")
-        with col2:
-            st.write("#### Person 2 (Partner/Peer)")
-            name2_in = st.text_input("Second Person Full Name:", key="n2")
-            date2_in = st.date_input("Second Person Birthday:", value=datetime(1988, 8, 18), key="d2")
-            
-        submit_comp = st.form_submit_button("Calculate Aligned Intersection Matrix ⚡", use_container_width=True)
-        
-    if submit_comp:
-        if not name1_in.strip() or not name2_in.strip():
-            st.warning("⚠️ Please provide full birth names for both profiles to trigger comparison.")
-        else:
-            d1_fmt = date1_in.strftime("%d/%m/%Y")
-            d2_fmt = date2_in.strftime("%d/%m/%Y")
-            
-            with st.spinner("Weaving comparative data pathways..."):
-                comp_output = generate_gemini_compatibility_reading(name1_in, d1_fmt, name2_in, d2_fmt, selected_language)
-                st.session_state.comp_cache = comp_output
-
-    if st.session_state.comp_cache:
-        st.divider()
-        st.write("### 🔮 CosmicVibe Unified Compatibility Assessment")
-        st.markdown(st.session_state.comp_cache)
-
-st.caption("Powered by Google Gemini 3.8 Flash & Your Custom Pythagorean Local Engine.")
-
