@@ -11,110 +11,63 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- 🌌 TWINKLING STARFIELD & MYSTICAL ACCENTS OVERRIDE ---
+# --- 🌌 SAFE, HIGH-CONTRAST COSMIC STYLE INJECTION ---
 st.markdown(
     """
     <style>
-    /* Main application container with a deep space cosmic base layer */
+    /* Direct block background override - Zero risking browser crashes */
     .stApp {
-        background: radial-gradient(circle at 50% 50%, #110e2e 0%, #09071a 70%, #03020a 100%) !important;
-        position: relative;
-        overflow: hidden;
+        background-color: #0b081a !important;
     }
     
-    /* Create an animated twinkling star layer behind everything */
-    .stApp::before {
-        content: "";
-        position: absolute;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background-image: 
-            radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
-            radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
-            radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
-        background-size: 550px 550px, 350px 350px, 250px 250px;
-        background-position: 0 0, 40px 60px, 130px 270px;
-        opacity: 0.4;
-        animation: cosmicTwinkle 120s linear infinite;
-        z-index: 0;
-        pointer-events: none;
-    }
-    
-    @keyframes cosmicTwinkle {
-        from { background-position: 0 0, 40px 60px, 130px 270px; }
-        to { background-position: 550px 1100px, 350px 700px, 250px 500px; }
-    }
-
-    /* Force all app text to sit forward cleanly over our background graphics */
-    p, li, span, label, div, h1, h2, h3, h4, h5, h6, [data-testid="stMarkdownContainer"] {
+    /* Global high-visibility text rules */
+    h1, h2, h3, h4, h5, h6, label, p, span {
         color: #f1ecff !important;
-        position: relative;
-        z-index: 1;
     }
 
-    /* Bright high-contrast silver text layout block for readings */
+    /* Target reading block output texts explicitly */
     [data-testid="stMarkdownContainer"] p, [data-testid="stMarkdownContainer"] li {
-        color: #f8f6ff !important;
+        color: #ffffff !important;
         font-size: 1.05rem !important;
         line-height: 1.6 !important;
     }
     
-    /* Input form layout block container styling */
+    /* Clean, high-contrast forms */
     [data-testid="stForm"] {
-        background-color: rgba(20, 15, 48, 0.75) !important;
-        border: 1px solid rgba(147, 112, 219, 0.5) !important;
-        border-radius: 12px !important;
-        box-shadow: 0 0 25px rgba(147, 112, 219, 0.2) !important;
-        position: relative;
-        z-index: 1;
-    }
-
-    /* Input elements text value fixes */
-    input[type="text"], input[type="date"], .stTextInput input, div[data-baseweb="input"] input, div[data-baseweb="select"] {
-        color: #ffffff !important;
-        background-color: #0c0824 !important;
-        font-weight: 600 !important;
-    }
-
-    /* Calendar overlay fixes */
-    div[role="listbox"], div[role="menu"], div[data-baseweb="calendar"] {
-        background-color: #110d33 !important;
-        color: #ffffff !important;
-    }
-    
-    div[data-baseweb="calendar"] button {
-        color: #ffffff !important;
-    }
-
-    input::placeholder {
-        color: #9d92f2 !important;
-        opacity: 1 !important;
-    }
-
-    /* Visual 3x3 Grid Matrix Box Accents */
-    .matrix-box {
-        background: rgba(22, 16, 54, 0.85) !important;
-        border: 2px solid #8a2be2 !important;
+        background-color: #120e2b !important;
+        border: 2px solid #5a3d96 !important;
         border-radius: 12px !important;
         padding: 20px !important;
+    }
+
+    /* Forcing legibility inside user entry data boxes */
+    input[type="text"], input[type="date"], .stTextInput input {
+        color: #ffffff !important;
+        background-color: #1b163d !important;
+        border: 1px solid #7d5bb5 !important;
+    }
+
+    /* 📊 Clean Structural 3x3 Chart Blocks */
+    .matrix-box {
+        background: #19143a !important;
+        border: 2px solid #8a2be2 !important;
+        border-radius: 12px !important;
+        padding: 15px !important;
         text-align: center !important;
-        box-shadow: 0 0 20px rgba(138, 43, 226, 0.6), inset 0 0 10px rgba(138, 43, 226, 0.3) !important;
-        margin-bottom: 15px !important;
+        margin-bottom: 10px !important;
     }
 
     .matrix-label {
         font-size: 0.85rem !important;
-        color: #c4bbff !important;
+        color: #b3a7ff !important;
         text-transform: uppercase !important;
-        letter-spacing: 1px !important;
-        margin-bottom: 5px !important;
         font-weight: bold !important;
     }
 
     .matrix-value {
-        font-size: 2.2rem !important;
+        font-size: 2.0rem !important;
         font-weight: 800 !important;
         color: #00ffff !important; 
-        text-shadow: 0 0 10px rgba(0, 255, 255, 0.8) !important;
     }
     </style>
     """,
