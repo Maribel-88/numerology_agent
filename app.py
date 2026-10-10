@@ -11,13 +11,13 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- 🌌 HIGH-CONTRAST MYSTICAL STYLE INJECTION ---
+# --- 🌌 HIGH-CONTRAST COSMIC STYLE INJECTION ---
 st.markdown(
     """
     <style>
-    /* Direct block background override */
+    /* Direct block background override to deep space navy */
     .stApp {
-        background-color: #0b081a !important;
+        background-color: #0d0b21 !important;
     }
     
     /* Global high-visibility text rules */
@@ -40,30 +40,31 @@ st.markdown(
         padding: 20px !important;
     }
 
-    /* NAME TEXT BOX SPECIFIC OVERRIDE: Bright white text on dark violet fill */
+    /* 🧱 FIXING THE FULL NAME INPUT TEXT BOX */
     .stTextInput input, input[type="text"] {
-        color: #ffffff !important;
-        background-color: #1b163d !important;
-        border: 1px solid #7d5bb5 !important;
+        color: #ffffff !important; /* Crisp white typing text */
+        background-color: #1b163d !important; /* Deep contrast dark purple background */
+        border: 2px solid #7d5bb5 !important;
+        border-radius: 6px !important;
         -webkit-text-fill-color: #ffffff !important;
         font-weight: 600 !important;
     }
 
-    /* DATE PICKER OVERRIDE: Rich purple background fill with clear white text components */
-    .stDateInput div[data-baseweb="input"] {
-        background-color: #4b1a8a !important;
-        border: 1px solid #9966ff !important;
+    /* 🧱 FIXING THE DATE PICKER INPUT BOX */
+    .stDateInput div[data-baseweb="input"], .stDateInput input {
+        background-color: #1b163d !important; /* Matching deep dark contrast purple background */
         border-radius: 6px !important;
     }
     
-    /* 🌟 CRITICAL FIX: Explicitly force the text values inside the date picker to be RED */
-    input[type="date"], .stDateInput input, div[data-baseweb="input"] div {
-        color: #ff3333 !important; /* Vivid Neon Red text */
-        -webkit-text-fill-color: #ff3333 !important; /* Fix for chrome/safari web engine overrides */
-        font-weight: 700 !important;
+    .stDateInput input {
+        color: #ffffff !important; /* Crisp white text so it stands out flawlessly */
+        border: 2px solid #7d5bb5 !important;
+        -webkit-text-fill-color: #ffffff !important;
+        font-weight: 600 !important;
+        font-size: 1.05rem !important;
     }
 
-    /* ENTER BUTTON OVERRIDE: Rich purple background fill with gold/white transitions */
+    /* ENTER BUTTON OVERRIDE: Rich purple background fill with clean white text */
     button[data-testid="stFormSubmitButton"] {
         background-color: #4b1a8a !important;
         color: #ffffff !important;
@@ -75,7 +76,6 @@ st.markdown(
         box-shadow: 0 0 10px rgba(153, 102, 255, 0.4) !important;
     }
 
-    /* Button hover/click transition glow state adjustments */
     button[data-testid="stFormSubmitButton"]:hover {
         background-color: #6622cc !important;
         border-color: #b388ff !important;
