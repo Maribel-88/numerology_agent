@@ -94,3 +94,11 @@ ARROWS = {
     "Arrow of Spiritual Openness": "Active Arrow of Spiritual Openness (3-5-7): You possess a natural spiritual connection, deep empathy, and philosophical balance.",
     "Arrow of Enquiring Mind": "Arrow of Enquiring Mind (Missing 3-5-7): You examine the world analytically, demanding facts over blind faith."
 }
+
+# Append this to the very bottom of numerology_data.py
+
+COMPATIBILITY_MATRICES = {
+    "NATURAL": "This connection represents a Natural Harmony vibration. Your core energetic fields slide together effortlessly, offering instant mutual understanding, shared evolutionary goals, and an easy flow of daily supportive energy.",
+    "CHALLENGE": "This connection represents a Spiritual Growth Lesson. Your core matrices hold highly contrasting vibrations. While this creates intense immediate attraction, it is designed by your souls to spark deep patience, clear communication breakthroughs, and compromise.",
+    "COMPLEMENT": "This connection represents a Complementary Matrix. You fill each other's empty chart planes. Where one person lacks structure or emotional focus, the other brings natural capability, making you an exceptionally powerful building team."
+}
