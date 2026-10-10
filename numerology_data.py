@@ -14,7 +14,6 @@ RULING_NUMBERS = {
     "22/4": "The Master Number 22/4 is the 'Master Builder.' It holds immense physical capability guided by high spiritual vision."
 }
 
-# --- 💼 NEW DATA SECTION: DR. DAVID PHILLIPS VOCATIONAL LANES ---
 VOCATIONS = {
     "2": "Diplomacy, mediation, administrative support, human resources, counseling, and fields requiring deep empathy without heavy commercial pressure.",
     "3": "Academia, professional writing, journalism, science, data analysis, planning, strategic management, and public speaking.",
@@ -27,6 +26,20 @@ VOCATIONS = {
     "10": "Sales leadership, corporate executive roles, performance art, dynamic public-facing fields, and venture design.",
     "11": "Spiritual leadership, alternative medicine, deep psychology, inspiring cultural roles, and intuitive educational development.",
     "22/4": "Large-scale real estate development, infrastructure engineering, political leadership, institutional building, and global entrepreneurship."
+}
+
+PERSONAL_YEARS = {
+    "1": "Year 1: New Beginnings and Pioneering Energy. A year of high adaptability, adjustments, planting fresh seeds, and initiating independent projects.",
+    "2": "Year 2: Development, Cooperation, and Patience. A slower cycle focusing on building spiritual balance, emotional growth, and partnerships.",
+    "3": "Year 3: Mental Expansion and Expression. The mind plane becomes highly active. Excellent for travel, studies, and creative communication projects.",
+    "4": "Year 4: Stabilization and Foundation. A year to secure resources, organize your physical life, rest, and build long-term material stability.",
+    "5": "Year 5: Freedom, Transition, and Dynamic Change. A central peak cycle that breaks old restrictions, heightens emotional desires, and brings sudden movements.",
+    "6": "Year 6: Creativity, Domesticity, and Responsibility. Focus is directed onto home balance, artistic pursuits, family protection, and human service.",
+    "7": "Year 7: Introspection, Personal Sacrifice, and Deep Teaching. A year designed for internal reflection, specialized learning, and absorbing wisdom from life tests.",
+    "8": "Year 8: Spiritual Independence and Financial Power. A dynamic year of action, self-realization, and executing business strategies with absolute integrity.",
+    "9": "Year 9: The Peak of Completion and Global Transformation. A massive transitional close to the 9-year cycle. Time to clear away the past and plan future horizons.",
+    "11": "Year 11: Master Spiritual Awakening. A highly intuitive year bringing heightened sensitivity, prophetic insight, and inner illumination.",
+    "22": "Year 22: Master Foundation Building. Massive practical capabilities match global ideals to manifest monumental physical structures."
 }
 
 EXPRESSION_NUMBERS = {
@@ -58,7 +71,7 @@ SOUL_URGE_NUMBERS = {
 }
 
 PERSONALITY_NUMBERS = {
-    "1": "The world sees you as dominant, independent, confident, and a clear self-starter who commands a room.",
+    "1": "The world sees you as dominant, independent, confidence, and a clear self-starter who commands a room.",
     "2": "Others perceive you as reliable, gentle, diplomatic, modest, and a peaceful presence who works well behind the scenes.",
     "3": "You present as vibrant, charismatic, witty, charming, and highly expressive in social groups.",
     "4": "The public perceives you as serious, intensely organized, practical, industrious, and down-to-earth.",

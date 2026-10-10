@@ -1,6 +1,5 @@
 import re
 
-# 1. Standard Birthdate Methods
 def clean_date(date_str: str) -> str:
     return "".join(re.findall(r'\d', date_str))
 
@@ -62,7 +61,6 @@ def get_full_profile(date_str: str) -> dict:
         "arrows_absent": arrows["arrows_of_emptiness"]
     }
 
-# 2. NEW: Pythagorean Full Name Matrix Methods
 PYTHAGOREAN_MAP = {
     'A': 1, 'B': 2, 'C': 3, 'D': 4, 'E': 5, 'F': 6, 'G': 7, 'H': 8, 'I': 9,
     'J': 1, 'K': 2, 'L': 3, 'M': 4, 'N': 5, 'O': 6, 'P': 7, 'Q': 8, 'R': 9,
@@ -70,7 +68,6 @@ PYTHAGOREAN_MAP = {
 }
 
 def reduce_name_number(total: int) -> str:
-    """Reduces name values while preserving Master Numbers 11 and 22."""
     if total == 11 or total == 22:
         return str(total)
     while total > 9:
@@ -80,16 +77,13 @@ def reduce_name_number(total: int) -> str:
     return str(total)
 
 def calculate_name_matrix(full_name: str) -> dict:
-    """Calculates Expression, Soul Urge, and Personality values from a full name string."""
     clean_name = "".join(re.findall(r'[A-Z]', full_name.upper()))
     if not clean_name:
         return {"error": "Name contains no valid alphabetic characters."}
-        
     vowels = "AEIOU"
     expression_total = 0
     soul_urge_total = 0
     personality_total = 0
-    
     for char in clean_name:
         val = PYTHAGOREAN_MAP.get(char, 0)
         expression_total += val
@@ -97,9 +91,31 @@ def calculate_name_matrix(full_name: str) -> dict:
             soul_urge_total += val
         else:
             personality_total += val
-            
     return {
         "expression": reduce_name_number(expression_total),
         "soul_urge": reduce_name_number(soul_urge_total),
         "personality": reduce_name_number(personality_total)
     }
+
+# 🌟 THE PERSONAL YEAR CALCULATOR MATHEMATICAL LOGIC
+def calculate_personal_year(birth_date_str: str, target_year: int) -> str:
+    """Combines birth day, birth month, and target calendar year to find the cycle score."""
+    digits = clean_date(birth_date_str)
+    if len(digits) < 4:
+        return "1"
+    
+    # Extract structural day and month digits
+    day = int(digits[0:2])
+    month = int(digits[2:4])
+    
+    total = day + month + target_year
+    
+    if total == 11 or total == 22:
+        return str(total)
+        
+    while total > 9:
+        total = sum(int(d) for d in str(total))
+        if total == 11 or total == 22:
+            return str(total)
+            
+    return str(total)

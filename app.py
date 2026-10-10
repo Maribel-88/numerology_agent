@@ -1,8 +1,9 @@
 # app.py
 import streamlit as st
 from build_db import generate_gemini_numerology_reading
-from numerology_engine import get_full_profile
+from numerology_engine import get_full_profile, calculate_personal_year
 from pdf_generator import create_numerology_pdf
+import numerology_data
 from datetime import datetime
 
 st.set_page_config(
@@ -11,79 +12,55 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- 🌌 COMPREHENSIVE TEXT VISIBILITY & FRAMEWORK OVERRIDE ---
+# --- 🌌 HIGH-CONTRAST COSMIC STYLE INJECTION ---
 st.markdown(
     """
     <style>
-    /* Direct block background canvas override */
     .stApp {
         background-color: #0b081a !important;
     }
-    
-    /* Global high-visibility text rules */
     h1, h2, h3, h4, h5, h6, label, p, span {
         color: #f1ecff !important;
     }
-
-    /* Target reading block output texts explicitly */
     [data-testid="stMarkdownContainer"] p, [data-testid="stMarkdownContainer"] li {
         color: #ffffff !important;
         font-size: 1.05rem !important;
         line-height: 1.6 !important;
     }
-    
-    /* Input form layout box outline */
     [data-testid="stForm"] {
         background-color: #120e2b !important;
         border: 2px solid #5a3d96 !important;
         border-radius: 12px !important;
         padding: 20px !important;
     }
-
-    /* 🧱 NAME TEXT BOX ACCENT */
     .stTextInput input, input[type="text"] {
         color: #ffffff !important;
         background-color: #1b163d !important;
-        border: 2px solid #7d5bb5 !important;
+        border: 1px solid #7d5bb5 !important;
         border-radius: 6px !important;
         -webkit-text-fill-color: #ffffff !important;
         font-weight: 600 !important;
     }
-
-    /* 📅 100% RELIABLE DATE PICKER BOX ACCENT OVERRIDE */
     div[data-testid="stDateInput"] div {
-        background-color: #4b1a8a !important; /* Spiritual Purple Fill */
-        border: 1px solid #9966ff !important;
+        background-color: #1b163d !important;
+        border: 2px solid #7d5bb5 !important;
         border-radius: 6px !important;
     }
-    
-    /* Force the text elements inside that specific calendar wrapper block to be clear white */
     div[data-testid="stDateInput"] input {
-        color: #ffffff !important; /* Bright white date digits */
+        color: #ffffff !important;
         background-color: transparent !important;
         -webkit-text-fill-color: #ffffff !important;
         font-weight: 600 !important;
     }
-
-    /* 🔮 100% RELIABLE CAST/ENTER BUTTON OVERRIDE */
     button[data-testid="baseButton-formSubmit"] {
-        background-color: #4b1a8a !important; /* Spiritual Purple Fill */
-        color: #ffffff !important; /* Crisp white button text and emoji */
+        background-color: #4b1a8a !important;
+        color: #ffffff !important;
         border: 2px solid #9966ff !important;
         border-radius: 8px !important;
         font-weight: bold !important;
         padding: 10px 20px !important;
         box-shadow: 0 0 12px rgba(153, 102, 255, 0.4) !important;
-        transition: all 0.3s ease !important;
     }
-
-    button[data-testid="baseButton-formSubmit"]:hover {
-        background-color: #6622cc !important;
-        border-color: #b388ff !important;
-        box-shadow: 0 0 18px rgba(179, 136, 255, 0.7) !important;
-    }
-
-    /* Clean Structural 3x3 Chart Blocks */
     .matrix-box {
         background: #19143a !important;
         border: 2px solid #8a2be2 !important;
@@ -92,18 +69,24 @@ st.markdown(
         text-align: center !important;
         margin-bottom: 10px !important;
     }
-
     .matrix-label {
         font-size: 0.85rem !important;
         color: #b3a7ff !important;
         text-transform: uppercase !important;
         font-weight: bold !important;
     }
-
     .matrix-value {
         font-size: 2.0rem !important;
         font-weight: 800 !important;
         color: #00ffff !important; 
+    }
+    .year-box {
+        background: linear-gradient(90deg, #1f1440 0%, #29124d 100%) !important;
+        border-left: 5px solid #ff00ff !important;
+        padding: 20px !important;
+        border-radius: 8px !important;
+        margin-top: 15px !important;
+        box-shadow: 0 4px 15px rgba(255, 0, 255, 0.1) !important;
     }
     </style>
     """,
@@ -112,7 +95,6 @@ st.markdown(
 
 st.title("🔮 CosmicVibe Advanced AI Agent")
 st.subheader("Unified Birthdate & Full Name Matrix — Dr. David A. Phillips System")
-st.write("Enter your details below to generate your complete Pythagorean spiritual profile and interactive chart matrix.")
 
 st.divider()
 
@@ -154,8 +136,29 @@ if submit_button:
 if st.session_state.reading_cache:
     st.divider()
     
+    # 🌟 DISPLAY PERSONAL YEAR TRACKER
+    st.write("### 📅 Your Personal Year Cycle Forecast")
+    
+    target_year = st.slider("Select Target Year to Forecast:", min_value=2020, max_value=2035, value=2026, step=1)
+    
+    py_num = calculate_personal_year(st.session_state.cached_date, target_year)
+    py_meaning = numerology_data.PERSONAL_YEARS.get(py_num, "General timeline mapping.")
+    
+    st.markdown(
+        f"""
+        <div class="year-box">
+            <h4 style='margin-top:0; color:#ffccff !important;'>🌟 FORECAST FOR CALENDAR YEAR {target_year}</h4>
+            <p style='font-size:1.15rem; font-weight:bold; color:#00ffff !important; margin-bottom:5px;'>Your Personal Year Number: {py_num}</p>
+            <p style='margin:0; font-style:italic; color:#ffffff !important;'>{py_meaning}</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    
+    st.divider()
+    
+    # --- Visual 3x3 Birth Chart Grid Matrix Box ---
     st.write("### 📊 Your Pythagorean Birth Chart Grid")
-    st.caption("Dr. Phillips' Three Planes of Human Experience: Mind (Top), Soul (Middle), Physical (Bottom)")
     
     raw_profile = get_full_profile(st.session_state.cached_date)
     grid_data = raw_profile.get("birth_chart_grid", {i: 0 for i in range(1, 10)})
@@ -192,6 +195,7 @@ if st.session_state.reading_cache:
     
     st.divider()
     
+    # --- PDF Download Hub ---
     st.write("### 📥 Save Your Blueprint Profile Report")
     
     pdf_data = create_numerology_pdf(
