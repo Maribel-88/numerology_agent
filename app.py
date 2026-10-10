@@ -11,11 +11,11 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- 🌌 SAFE, HIGH-CONTRAST COSMIC STYLE INJECTION ---
+# --- 🌌 HIGH-CONTRAST MYSTICAL STYLE INJECTION ---
 st.markdown(
     """
     <style>
-    /* Direct block background override - Zero risking browser crashes */
+    /* Direct block background override */
     .stApp {
         background-color: #0b081a !important;
     }
@@ -32,7 +32,7 @@ st.markdown(
         line-height: 1.6 !important;
     }
     
-    /* Clean, high-contrast forms */
+    /* Clean, high-contrast input form layout container */
     [data-testid="stForm"] {
         background-color: #120e2b !important;
         border: 2px solid #5a3d96 !important;
@@ -40,11 +40,46 @@ st.markdown(
         padding: 20px !important;
     }
 
-    /* Forcing legibility inside user entry data boxes */
-    input[type="text"], input[type="date"], .stTextInput input {
+    /* 🌟 NAME TEXT BOX SPECIFIC OVERRIDE: Bright white text on dark violet fill */
+    .stTextInput input, input[type="text"] {
         color: #ffffff !important;
         background-color: #1b163d !important;
         border: 1px solid #7d5bb5 !important;
+        -webkit-text-fill-color: #ffffff !important;
+        font-weight: 600 !important;
+    }
+
+    /* 🌟 DATE PICKER OVERRIDE: Rich purple background fill with clear white text */
+    input[type="date"], .stDateInput div[data-baseweb="input"] {
+        background-color: #4b1a8a !important;
+        border: 1px solid #9966ff !important;
+        border-radius: 6px !important;
+    }
+    
+    /* Ensure the text typed/shown inside the purple date box remains white */
+    input[type="date"] {
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+        font-weight: 600 !important;
+    }
+
+    /* 🌟 ENTER BUTTON OVERRIDE: Rich purple background fill with gold/white transitions */
+    button[data-testid="stFormSubmitButton"] {
+        background-color: #4b1a8a !important;
+        color: #ffffff !important;
+        border: 1px solid #9966ff !important;
+        border-radius: 8px !important;
+        font-weight: bold !important;
+        padding: 10px 20px !important;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 0 10px rgba(153, 102, 255, 0.4) !important;
+    }
+
+    /* Button hover/click transition glow state adjustments */
+    button[data-testid="stFormSubmitButton"]:hover {
+        background-color: #6622cc !important;
+        border-color: #b388ff !important;
+        box-shadow: 0 0 15px rgba(179, 136, 255, 0.7) !important;
     }
 
     /* 📊 Clean Structural 3x3 Chart Blocks */
