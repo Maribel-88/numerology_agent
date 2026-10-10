@@ -1,13 +1,13 @@
 # pdf_generator.py
 from fpdf import FPDF
 from datetime import datetime
+import re
 
 class NumerologyPDF(FPDF):
     def header(self):
         # Elegant header line on every page
         self.set_font("Helvetica", "B", 10)
         self.set_text_color(120, 120, 120)
-        # FIXED: Removed 'ord' and correctly set layout text alignment
         self.cell(0, 10, "COSMICVIBE AI -- PYTHAGOREAN NUMEROLOGY REPORT", align="L")
         self.ln(12)
 
@@ -17,6 +17,18 @@ class NumerologyPDF(FPDF):
         self.set_font("Helvetica", "I", 8)
         self.set_text_color(150, 150, 150)
         self.cell(0, 10, f"Page {self.page_no()}", 0, 0, "R")
+
+def sanitize_text_for_pdf(text: str) -> str:
+    """Cleans up markdown characters, emojis, and problematic indentation strings."""
+    # 1. Strip out markdown asterisks and heavy structural headers
+    text = text.replace("**", "").replace("### ", "").replace("## ", "").replace("---", "")
+    
+    # 2. Replace markdown bullets with a clean standard indent bullet
+    text = re.sub(r'^\s*[\*\-\+]\s+', '  - ', text, flags=re.MULTILINE)
+    
+    # 3. Force clean ASCII/Latin-1 encoding to prevent font rendering engine hiccups
+    text = text.encode('latin-1', 'replace').decode('latin-1')
+    return text
 
 def create_numerology_pdf(full_name: str, birth_date: str, reading_text: str) -> bytes:
     """Generates an elegant, structured PDF and returns its raw binary bytes."""
@@ -45,29 +57,27 @@ def create_numerology_pdf(full_name: str, birth_date: str, reading_text: str) ->
     # --- Main Content Core ---
     pdf.set_text_color(40, 40, 40)
     
-    # Clean up emojis and markdown formatting inconsistencies before passing to PDF layout
-    clean_text = reading_text.replace("**", "").replace("### ", "").replace("## ", "").replace("---", "")
-    
-    # Ensure text is clean ASCII/Latin-1 standard to avoid encoding errors in standard FPDF fonts
-    clean_text = clean_text.encode('latin-1', 'replace').decode('latin-1')
+    # Clean up formatting before feeding text lines to layout margins
+    clean_text = sanitize_text_for_pdf(reading_text)
     
     for line in clean_text.split("\n"):
-        if not line.strip():
+        stripped_line = line.strip()
+        if not stripped_line:
             pdf.ln(4)
             continue
             
-        # Dynamically highlight header sections within the stream text
-        if line.startswith("#") or "RULING NUMBER" in line.upper() or "ARROW" in line.upper() or "MATRIX" in line.upper() or "DESTINY" in line.upper() or "SOUL" in line.upper() or "PERSONALITY" in line.upper():
-            pdf.set_font("Helvetica", "B", 14)
+        # Dynamically highlight heading sections
+        if line.startswith("#") or "RULING NUMBER" in line.upper() or "ARROW" in line.upper() or "MATRIX" in line.upper() or "DESTINY" in line.upper() or "SOUL" in line.upper() or "PERSONALITY" in line.upper() or "VOCATION" in line.upper():
+            pdf.set_font("Helvetica", "B", 13)
             pdf.set_text_color(70, 40, 130)
             pdf.ln(4)
-            pdf.multi_cell(0, 8, line.replace("#", "").strip())
+            pdf.multi_cell(0, 7, stripped_line.replace("#", ""))
             pdf.ln(2)
         else:
-            # Standard structural paragraph block layout
+            # Standard text paragraph block rendering with absolute minimum fallback margins
             pdf.set_font("Helvetica", "", 10.5)
             pdf.set_text_color(50, 50, 50)
-            pdf.multi_cell(0, 6, line.strip())
+            # Setting a 5mm minimum line boundary prevents character collision tracking errors
+            pdf.multi_cell(0, 6, line if line.startswith("  -") else stripped_line)
             
-    # Return the clean generated stream document directly as byte objects back to Streamlit
     return pdf.output()
