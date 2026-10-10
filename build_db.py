@@ -5,15 +5,16 @@ from dotenv import load_dotenv
 from numerology_engine import get_full_profile, calculate_name_matrix
 import numerology_data
 
+# Explicitly load the environmental configuration variables
 load_dotenv()
-api_key = os.getenv("GEMINI_API_KEY")
-if api_key:
-    api_key = api_key.strip("'\"")
 
-client = genai.Client(api_key=api_key)
+# FIXED: We do NOT pass api_key manually to genai.Client().
+# Leaving Client() completely empty forces the Google GenAI library to 
+# automatically and natively look for an environmental variable named GEMINI_API_KEY.
+client = genai.Client()
 
 def generate_gemini_numerology_reading(birth_date: str, full_name: str) -> str:
-    """Combines data and generates a profile via Gemini 3.8 with a 503 retry safety fallback loop."""
+    """Combines data and generates a profile via Gemini 3.8 with standard native authentication."""
     
     # 1. Compute metrics via local engine
     date_profile = get_full_profile(birth_date)
@@ -50,9 +51,8 @@ def generate_gemini_numerology_reading(birth_date: str, full_name: str) -> str:
 
     print("🤖 Communicating with your Free Gemini 3.8 Persona Engine... Please wait...")
 
-    # 4. Smart Connection Loop with built-in retry mechanics
     max_retries = 3
-    base_delay = 2 # Seconds to wait before trying again
+    base_delay = 2 
     
     for attempt in range(max_retries):
         try:
@@ -75,12 +75,10 @@ def generate_gemini_numerology_reading(birth_date: str, full_name: str) -> str:
             return response.text
             
         except Exception as e:
-            # Check if the error looks like a temporary server overload or high demand issue
             if "503" in str(e) or "UNAVAILABLE" in str(e):
                 if attempt < max_retries - 1:
                     print(f"⚠️ Server busy (Attempt {attempt + 1}/{max_retries}). Retrying in {base_delay} seconds...")
                     time.sleep(base_delay)
-                    base_delay *= 2 # Exponential backoff to give the server more time to recover
+                    base_delay *= 2 
                     continue
             return f"Gemini connection failed. Error Details: {e}"
-
