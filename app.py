@@ -1,7 +1,8 @@
 # app.py
 import streamlit as st
 from build_db import generate_gemini_numerology_reading
-from pdf_generator import create_numerology_pdf  # Import our brand new PDF writer module
+from numerology_engine import get_full_profile  # Import the core logic directly for the grid
+from pdf_generator import create_numerology_pdf
 from datetime import datetime
 
 st.set_page_config(
@@ -12,7 +13,7 @@ st.set_page_config(
 
 st.title("✨ CosmicVibe Advanced AI Agent")
 st.subheader("Unified Birthdate & Full Name Matrix — Dr. David A. Phillips System")
-st.write("Enter your details below to generate and export your complete Pythagorean spiritual profile.")
+st.write("Enter your details below to generate your complete Pythagorean spiritual profile and interactive chart matrix.")
 
 st.divider()
 
@@ -61,17 +62,49 @@ if submit_button:
 if st.session_state.reading_cache:
     st.divider()
     
-    # --- BRAND NEW FEATURE: Dynamic PDF Download Hub Layout Box ---
+    # --- BRAND NEW FEATURE: Visual 3x3 Birth Chart Grid Matrix Box ---
+    st.write("### 📊 Your Pythagorean Birth Chart Grid")
+    st.caption("Dr. Phillips' Three Planes of Human Experience: Mind (Top), Soul (Middle), Physical (Bottom)")
+    
+    # Pull the exact raw calculated profile math figures dynamically
+    raw_profile = get_full_profile(st.session_state.cached_date)
+    grid_data = raw_profile.get("birth_chart_grid", {i: 0 for i in range(1, 10)})
+    
+    # Generate visual string blocks for the matrix cells (e.g., "33" if two 3s exist, or "-" if empty)
+    def make_cell(num):
+        count = grid_data.get(num, 0)
+        return str(num) * count if count > 0 else "-"
+
+    # Render Dr. Phillips' Exact 3x3 Layout Grid Rows using Streamlit Columns layout
+    # Row 1: Mind Plane (3, 6, 9)
+    r1_c1, r1_c2, r1_c3 = st.columns(3)
+    with r1_c1: st.metric(label="🧠 Mind Cell (3)", value=make_cell(3))
+    with r1_c2: st.metric(label="🧠 Mind Cell (6)", value=make_cell(6))
+    with r1_c3: st.metric(label="🧠 Mind Cell (9)", value=make_cell(9))
+    
+    # Row 2: Soul Plane (2, 5, 8)
+    r2_c1, r2_c2, r2_c3 = st.columns(3)
+    with r2_c1: st.metric(label="❤️ Soul Cell (2)", value=make_cell(2))
+    with r2_c2: st.metric(label="❤️ Soul Cell (5)", value=make_cell(5))
+    with r2_c3: st.metric(label="❤️ Soul Cell (8)", value=make_cell(8))
+    
+    # Row 3: Physical Plane (1, 4, 7)
+    r3_c1, r3_c2, r3_c3 = st.columns(3)
+    with r3_c1: st.metric(label="🧱 Physical Cell (1)", value=make_cell(1))
+    with r3_c2: st.metric(label="🧱 Physical Cell (4)", value=make_cell(4))
+    with r3_c3: st.metric(label="🧱 Physical Cell (7)", value=make_cell(7))
+    
+    st.divider()
+    
+    # --- PDF Download Hub Layout Box ---
     st.write("### 📥 Save Your Blueprint Profile Report")
     
-    # Generate the raw data binary stream directly across the layout cache
     pdf_data = create_numerology_pdf(
         st.session_state.cached_name,
         st.session_state.cached_date,
         st.session_state.reading_cache
     )
     
-    # Streamlit standard secure internal binary asset downloader pipeline downloader block module
     st.download_button(
         label="Download Professional PDF Report 📄",
         data=bytes(pdf_data),
