@@ -1,17 +1,77 @@
 # app.py
 import streamlit as st
 from build_db import generate_gemini_numerology_reading
-from numerology_engine import get_full_profile  # Import the core logic directly for the grid
+from numerology_engine import get_full_profile
 from pdf_generator import create_numerology_pdf
 from datetime import datetime
 
 st.set_page_config(
     page_title="CosmicVibe - Advanced Pythagorean Numerology AI",
-    page_icon="✨",
+    page_icon="🔮",
     layout="centered"
 )
 
-st.title("✨ CosmicVibe Advanced AI Agent")
+# --- 🌌 MYSTICAL DARK-MODE STYLE INJECTION ---
+st.markdown(
+    """
+    <style>
+    /* Main background theme config */
+    .stApp {
+        background: linear-gradient(135deg, #0d0b21 0%, #161233 50%, #080614 100%) !important;
+        color: #e0dbff !important;
+    }
+    
+    /* Input form layout box styling */
+    [data-testid="stForm"] {
+        background-color: rgba(25, 20, 55, 0.45) !important;
+        border: 1px solid rgba(147, 112, 219, 0.3) !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 20px rgba(147, 112, 219, 0.1) !important;
+    }
+
+    /* Headings adjustments */
+    h1, h2, h3, h4, h5, h6, label, p, span, [data-testid="stWidgetLabel"] p {
+        color: #f1ecff !important;
+    }
+
+    /* Target the text inputs specifically to make them legible */
+    input, div[data-baseweb="input"] {
+        background-color: #1a163a !important;
+        color: #ffffff !important;
+    }
+
+    /* Custom classes for the 3x3 Grid Containers with Neon Purple Glow */
+    .matrix-box {
+        background: rgba(30, 22, 65, 0.6) !important;
+        border: 2px solid #8a2be2 !important;
+        border-radius: 12px !important;
+        padding: 20px !important;
+        text-align: center !important;
+        box-shadow: 0 0 15px rgba(138, 43, 226, 0.6), inset 0 0 10px rgba(138, 43, 226, 0.3) !important;
+        margin-bottom: 15px !important;
+    }
+
+    .matrix-label {
+        font-size: 0.85rem !important;
+        color: #b3a7ff !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1px !important;
+        margin-bottom: 5px !important;
+        font-weight: bold !important;
+    }
+
+    .matrix-value {
+        font-size: 2.2rem !important;
+        font-weight: 800 !important;
+        color: #00ffff !important; /* Glowing Neon Cyan values */
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.8) !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+st.title("🔮 CosmicVibe Advanced AI Agent")
 st.subheader("Unified Birthdate & Full Name Matrix — Dr. David A. Phillips System")
 st.write("Enter your details below to generate your complete Pythagorean spiritual profile and interactive chart matrix.")
 
@@ -62,7 +122,7 @@ if submit_button:
 if st.session_state.reading_cache:
     st.divider()
     
-    # --- BRAND NEW FEATURE: Visual 3x3 Birth Chart Grid Matrix Box ---
+    # --- Visual 3x3 Birth Chart Grid Matrix Box ---
     st.write("### 📊 Your Pythagorean Birth Chart Grid")
     st.caption("Dr. Phillips' Three Planes of Human Experience: Mind (Top), Soul (Middle), Physical (Bottom)")
     
@@ -70,29 +130,41 @@ if st.session_state.reading_cache:
     raw_profile = get_full_profile(st.session_state.cached_date)
     grid_data = raw_profile.get("birth_chart_grid", {i: 0 for i in range(1, 10)})
     
-    # Generate visual string blocks for the matrix cells (e.g., "33" if two 3s exist, or "-" if empty)
+    # Generate visual string blocks for the matrix cells
     def make_cell(num):
         count = grid_data.get(num, 0)
         return str(num) * count if count > 0 else "-"
 
-    # Render Dr. Phillips' Exact 3x3 Layout Grid Rows using Streamlit Columns layout
+    # Helper helper wrapper block to render custom styled glowing TOML html markup injection
+    def render_glow_box(label, value):
+        st.markdown(
+            f"""
+            <div class="matrix-box">
+                <div class="matrix-label">{label}</div>
+                <div class="matrix-value">{value}</div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+    # Render Dr. Phillips' Exact 3x3 Layout Grid Rows using HTML Injection inside columns
     # Row 1: Mind Plane (3, 6, 9)
     r1_c1, r1_c2, r1_c3 = st.columns(3)
-    with r1_c1: st.metric(label="🧠 Mind Cell (3)", value=make_cell(3))
-    with r1_c2: st.metric(label="🧠 Mind Cell (6)", value=make_cell(6))
-    with r1_c3: st.metric(label="🧠 Mind Cell (9)", value=make_cell(9))
+    with r1_c1: render_glow_box("Mind (3)", make_cell(3))
+    with r1_c2: render_glow_box("Mind (6)", make_cell(6))
+    with r1_c3: render_glow_box("Mind (9)", make_cell(9))
     
     # Row 2: Soul Plane (2, 5, 8)
     r2_c1, r2_c2, r2_c3 = st.columns(3)
-    with r2_c1: st.metric(label="❤️ Soul Cell (2)", value=make_cell(2))
-    with r2_c2: st.metric(label="❤️ Soul Cell (5)", value=make_cell(5))
-    with r2_c3: st.metric(label="❤️ Soul Cell (8)", value=make_cell(8))
+    with r2_c1: render_glow_box("Soul (2)", make_cell(2))
+    with r2_c2: render_glow_box("Soul (5)", make_cell(5))
+    with r2_c3: render_glow_box("Soul (8)", make_cell(8))
     
     # Row 3: Physical Plane (1, 4, 7)
     r3_c1, r3_c2, r3_c3 = st.columns(3)
-    with r3_c1: st.metric(label="🧱 Physical Cell (1)", value=make_cell(1))
-    with r3_c2: st.metric(label="🧱 Physical Cell (4)", value=make_cell(4))
-    with r3_c3: st.metric(label="🧱 Physical Cell (7)", value=make_cell(7))
+    with r3_c1: render_glow_box("Physical (1)", make_cell(1))
+    with r3_c2: render_glow_box("Physical (4)", make_cell(4))
+    with r3_c3: render_glow_box("Physical (7)", make_cell(7))
     
     st.divider()
     
