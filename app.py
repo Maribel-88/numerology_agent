@@ -12,7 +12,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- 🌌 STYLING LAYER OVERRIDES ---
+# --- 🌌 HIGH-CONTRAST COSMIC STYLE INJECTION ---
 st.markdown(
     """
     <style>
@@ -40,7 +40,6 @@ st.markdown(
     .year-box, .zodiac-box {
         background: linear-gradient(90deg, #1f1440 0%, #29124d 100%) !important; border-left: 5px solid #ff00ff !important; padding: 20px !important; border-radius: 8px !important; margin-top: 15px !important; box-shadow: 0 4px 15px rgba(255, 0, 255, 0.1) !important;
     }
-    /* Tab Styling Overrides to prevent default white headers */
     button[data-baseweb="tab"] { color: #b3a7ff !important; font-weight: 600 !important; }
     button[data-baseweb="tab"][aria-selected="true"] { color: #00ffff !important; border-bottom-color: #00ffff !important; }
     </style>
@@ -51,7 +50,18 @@ st.markdown(
 st.title("🔮 CosmicVibe Advanced AI Agent")
 st.write("Unlock your unique Pythagorean configurations and interpersonal matrix structures.")
 
-# --- 🚀 BRAND NEW INTERFACE ELEMENT: THE TAB MANAGER ---
+# --- 🌟 BRAND NEW: SIDEBAR LANGUAGE MENU WIDGET ---
+with st.sidebar:
+    st.write("### 🌐 Language Hub")
+    selected_language = st.selectbox(
+        "Choose Presentation Language:",
+        options=["English", "Español (Spanish)", "Français (French)", "Tagalog", "Deutsch (German)", "Italiano (Italian)"],
+        index=0
+    )
+    st.divider()
+    st.caption("The AI Persona Engine automatically translates all generated narrative blocks into your selected language.")
+
+# --- Tab Layout ---
 tab1, tab2 = st.tabs(["👤 Individual Blueprint", "👥 Relationship Compatibility"])
 
 # ================= TAB 1: INDIVIDUAL BLUEPRINT ENGINE =================
@@ -72,7 +82,8 @@ with tab1:
         else:
             formatted_date = selected_date.strftime("%d/%m/%Y")
             with st.spinner("Decoding cosmic grids..."):
-                reading_output = generate_gemini_numerology_reading(formatted_date, full_name_input)
+                # Pass the selected language variable into your processing engine function
+                reading_output = generate_gemini_numerology_reading(formatted_date, full_name_input, selected_language)
                 st.session_state.reading_cache = reading_output
                 st.session_state.cached_name = full_name_input
                 st.session_state.cached_date = formatted_date
@@ -139,14 +150,15 @@ with tab2:
         submit_comp = st.form_submit_button("Calculate Aligned Intersection Matrix ⚡", use_container_width=True)
         
     if submit_comp:
-        if not name1_in.strip() or not name2_in.strip():
+        if not name1_in.strip or not name2_in.strip():
             st.warning("⚠️ Please provide full birth names for both profiles to trigger comparison.")
         else:
             d1_fmt = date1_in.strftime("%d/%m/%Y")
             d2_fmt = date2_in.strftime("%d/%m/%Y")
             
-            with st.spinner("Weaving comparative data pathways... Please wait..."):
-                comp_output = generate_gemini_compatibility_reading(name1_in, d1_fmt, name2_in, d2_fmt)
+            with st.spinner("Weaving comparative data pathways..."):
+                # Pass the selected language variable into your compatibility core engine
+                comp_output = generate_gemini_compatibility_reading(name1_in, d1_fmt, name2_in, d2_fmt, selected_language)
                 st.session_state.comp_cache = comp_output
 
     if st.session_state.comp_cache:
