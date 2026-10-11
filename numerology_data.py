@@ -102,3 +102,19 @@ COMPATIBILITY_MATRICES = {
     "CHALLENGE": "This connection represents a Spiritual Growth Lesson. Your core matrices hold highly contrasting vibrations. While this creates intense immediate attraction, it is designed by your souls to spark deep patience, clear communication breakthroughs, and compromise.",
     "COMPLEMENT": "This connection represents a Complementary Matrix. You fill each other's empty chart planes. Where one person lacks structure or emotional focus, the other brings natural capability, making you an exceptionally powerful building team."
 }
+
+# Append this directly to the very bottom of numerology_data.py
+
+LUCKY_COLORS = {
+    "2": {"color": "Midnight Blue & Soft Silver", "hex": "#1e3a8a", "meaning": "Enhances your deep natural intuition, filters out emotional overstimulation, and anchors peace."},
+    "3": {"color": "Bright Citron Yellow & Royal Purple", "hex": "#eab308", "meaning": "Fires up mental agility, expands self-expression, and clears creative blocks on the mind plane."},
+    "4": {"color": "Forest Green & Terracotta Earth", "hex": "#15803d", "meaning": "Brings grounding energy, physical structural focus, stability, and organizational calm."},
+    "5": {"color": "Neon Turquoise & Aquamarine", "hex": "#06b6d4", "meaning": "Resonates with freedom, creative flow, artistic adaptability, and smooth life transitions."},
+    "6": {"color": "Crimson Ruby & Soft Rose", "hex": "#be123c", "meaning": "Stimulates the caretaker archetype, nurturing protection, domestic creativity, and unconditional love."},
+    "7": {"color": "Amethyst Violet & Royal Purple", "hex": "#6d28d9", "meaning": "Deepens philosophical reflection, historical research clarity, and protects your spiritual energy field."},
+    "8": {"color": "Polished Charcoal & Deep Gold", "hex": "#374151", "meaning": "Commands executive authority, commercial material competence, independent power, and ethical balance."},
+    "9": {"color": "Brilliant Scarlet & Pure White", "hex": "#dc2626", "meaning": "Ignites global humanitarian ambition, broad-minded social idealism, and drives deep responsibility."},
+    "10": {"color": "Sunfire Orange & Gold", "hex": "#ea580c", "meaning": "Amplifies your dynamic adaptability, leadership potential, and highly charismatic social presence."},
+    "11": {"color": "Iridescent Pearl & Pure Violet", "hex": "#a855f7", "meaning": "Channels master spiritual illumination, cosmic psychic sensitivity, and keeps your aura grounded."},
+    "22/4": {"color": "Deep Emerald & Platinum", "hex": "#047857", "meaning": "The Master Builder vibration. Supports the practical grid strength needed to materialize monumental global infrastructure visions."}
+}

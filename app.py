@@ -16,138 +16,78 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    /* Direct block background canvas override */
-    .stApp {
+    .stApp { background-color: #0b081a !important; }
+    
+    header[data-testid="stHeader"] {
         background-color: #0b081a !important;
+        border-bottom: 1px solid rgba(147, 112, 219, 0.2) !important;
     }
-    
-    /* FIXING THE SIDEBAR COLORING & TEXT ACCENTS */
-    section[data-testid="stSidebar"] {
-        background-color: #120e2b !important; /* Deep dark purple sidebar background */
-        border-right: 1px solid rgba(147, 112, 219, 0.3) !important;
-    }
-    
-    section[data-testid="stSidebar"] p, section[data-testid="stSidebar"] span, section[data-testid="stSidebar"] label {
-        color: #f1ecff !important; /* Forces sidebar labels to be clear and readable */
-    }
-    
-    /* Global high-visibility text rules */
-    h1, h2, h3, h4, h5, h6, label, p, span {
+    header[data-testid="stHeader"] a, header[data-testid="stHeader"] span, header[data-testid="stHeader"] button {
         color: #f1ecff !important;
     }
-
-    /* Target reading block output texts explicitly */
-    [data-testid="stMarkdownContainer"] p, [data-testid="stMarkdownContainer"] li {
-        color: #ffffff !important;
-        font-size: 1.05rem !important;
-        line-height: 1.6 !important;
-    }
     
-    /* Input form layout box outline */
-    [data-testid="stForm"] {
+    section[data-testid="stSidebar"] {
         background-color: #120e2b !important;
-        border: 2px solid #5a3d96 !important;
-        border-radius: 12px !important;
-        padding: 20px !important;
+        border-right: 1px solid rgba(147, 112, 219, 0.3) !important;
     }
-
-    /* NAME TEXT BOX ACCENT */
+    section[data-testid="stSidebar"] p, section[data-testid="stSidebar"] span, section[data-testid="stSidebar"] label {
+        color: #f1ecff !important;
+    }
+    
+    h1, h2, h3, h4, h5, h6, label, p, span { color: #f1ecff !important; }
+    [data-testid="stMarkdownContainer"] p, [data-testid="stMarkdownContainer"] li {
+        color: #ffffff !important; font-size: 1.05rem !important; line-height: 1.6 !important;
+    }
+    [data-testid="stForm"] {
+        background-color: #120e2b !important; border: 2px solid #5a3d96 !important; border-radius: 12px !important; padding: 20px !important;
+    }
     .stTextInput input, input[type="text"] {
-        color: #ffffff !important;
-        background-color: #1b163d !important;
-        border: 1px solid #7d5bb5 !important;
-        border-radius: 6px !important;
-        -webkit-text-fill-color: #ffffff !important;
-        font-weight: 600 !important;
+        color: #ffffff !important; background-color: #1b163d !important; border: 1px solid #7d5bb5 !important; border-radius: 6px !important; font-weight: 600 !important;
     }
-
-    /* DATE PICKER BOX ACCENT OVERRIDE */
-    div[data-testid="stDateInput"] div {
-        background-color: #1b163d !important;
-        border: 1px solid #7d5bb5 !important;
-        border-radius: 6px !important;
-    }
+    div[data-testid="stDateInput"] div { background-color: #1b163d !important; border: 2px solid #7d5bb5 !important; border-radius: 6px !important; }
+    div[data-testid="stDateInput"] input { color: #ffffff !important; background-color: transparent !important; font-weight: 600 !important; }
     
-    div[data-testid="stDateInput"] input {
-        color: #ffffff !important;
-        background-color: transparent !important;
-        -webkit-text-fill-color: #ffffff !important;
-        font-weight: 600 !important;
-    }
-
-    /* FIXING THE CAST/ENTER BUTTON STYLING AND ICON COLOR */
     button[data-testid="baseButton-formSubmit"] {
-        background: linear-gradient(90deg, #4b1a8a 0%, #6622cc 100%) !important;
-        color: #ffffff !important; /* Crisp white button text */
-        border: 1px solid #9966ff !important;
-        border-radius: 8px !important;
-        font-weight: bold !important;
-        padding: 10px 20px !important;
-        box-shadow: 0 0 12px rgba(153, 102, 255, 0.4) !important;
-        transition: all 0.3s ease !important;
+        background: linear-gradient(90deg, #4b1a8a 0%, #6622cc 100%) !important; color: #ffffff !important; border: 1px solid #9966ff !important; border-radius: 8px !important; font-weight: bold !important;
     }
-    
-    /* Force the button text/emoji inside to stay white instead of gray */
-    button[data-testid="baseButton-formSubmit"] p, button[data-testid="baseButton-formSubmit"] span {
-        color: #ffffff !important;
-    }
-
+    button[data-testid="baseButton-formSubmit"] p, button[data-testid="baseButton-formSubmit"] span { color: #ffffff !important; }
     button[data-testid="baseButton-formSubmit"]:hover {
-        background: linear-gradient(90deg, #5a24a3 0%, #7733ee 100%) !important;
-        border-color: #b388ff !important;
-        box-shadow: 0 0 18px rgba(179, 136, 255, 0.7) !important;
-    }
-
-    /* TAB NAVIGATION BAR TEXT VISIBILITY OVERRIDES */
-    div[data-testid="stTabs"] button [data-testid="stMarkdownContainer"] p {
-        color: #c4bbff !important; /* Forces INACTIVE tab text to be light visible purple-gray */
-        font-weight: 600 !important;
-        font-size: 1.0rem !important;
+        background: linear-gradient(90deg, #5a24a3 0%, #7733ee 100%) !important; border-color: #b388ff !important; box-shadow: 0 0 18px rgba(179, 136, 255, 0.7) !important;
     }
     
-    div[data-testid="stTabs"] button[aria-selected="true"] [data-testid="stMarkdownContainer"] p {
-        color: #00ffff !important; /* Forces ACTIVE tab text to be high-contrast glowing cyan */
-        text-shadow: 0 0 8px rgba(0, 255, 255, 0.5) !important;
-    }
-    
-    /* Border underline alignment logic for the navigation bar tabs */
-    div[data-testid="stTabs"] button {
-        border-bottom: 2px solid rgba(147, 112, 219, 0.2) !important;
-    }
-    div[data-testid="stTabs"] button[aria-selected="true"] {
-        border-bottom: 2px solid #00ffff !important;
-    }
+    div[data-testid="stTabs"] button [data-testid="stMarkdownContainer"] p { color: #c4bbff !important; font-weight: 600 !important; font-size: 1.0rem !important; }
+    div[data-testid="stTabs"] button[aria-selected="true"] [data-testid="stMarkdownContainer"] p { color: #00ffff !important; text-shadow: 0 0 8px rgba(0, 255, 255, 0.5) !important; }
+    div[data-testid="stTabs"] button { border-bottom: 2px solid rgba(147, 112, 219, 0.2) !important; }
+    div[data-testid="stTabs"] button[aria-selected="true"] { border-bottom: 2px solid #00ffff !important; }
 
-    /* Clean Structural 3x3 Chart Blocks */
     .matrix-box {
-        background: #19143a !important;
-        border: 2px solid #8a2be2 !important;
-        border-radius: 12px !important;
-        padding: 15px !important;
-        text-align: center !important;
-        margin-bottom: 10px !important;
+        background: #19143a !important; border: 2px solid #8a2be2 !important; border-radius: 12px !important; padding: 15px !important; text-align: center !important; margin-bottom: 10px !important;
     }
-
-    .matrix-label {
-        font-size: 0.85rem !important;
-        color: #b3a7ff !important;
-        text-transform: uppercase !important;
-        font-weight: bold !important;
-    }
-
-    .matrix-value {
-        font-size: 2.0rem !important;
-        font-weight: 800 !important;
-        color: #00ffff !important; 
-    }
+    .matrix-label { font-size: 0.85rem !important; color: #b3a7ff !important; text-transform: uppercase !important; font-weight: bold !important; }
+    .matrix-value { font-size: 2.0rem !important; font-weight: 800 !important; color: #00ffff !important; }
     
     .year-box, .zodiac-box {
-        background: linear-gradient(90deg, #1f1440 0%, #29124d 100%) !important; 
-        border-left: 5px solid #ff00ff !important; 
-        padding: 20px !important; 
-        border-radius: 8px !important; 
-        margin-top: 15px !important; 
-        box-shadow: 0 4px 15px rgba(255, 0, 255, 0.1) !important;
+        background: linear-gradient(90deg, #1f1440 0%, #29124d 100%) !important; border-left: 5px solid #ff00ff !important; padding: 20px !important; border-radius: 8px !important; margin-top: 15px !important; box-shadow: 0 4px 15px rgba(255, 0, 255, 0.1) !important;
+    }
+
+    /* 🎨 NEW STYLING: Dynamic Lucky Color Output Component Block */
+    .color-container {
+        background-color: #120e2b !important;
+        border: 2px solid #5a3d96 !important;
+        border-radius: 10px !important;
+        padding: 20px !important;
+        margin-top: 15px !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 20px !important;
+    }
+    .color-circle {
+        width: 60px !important;
+        height: 60px !important;
+        border-radius: 50% !important;
+        border: 2px solid #ffffff !important;
+        box-shadow: 0 0 15px rgba(255,255,255,0.2) !important;
+        flex-shrink: 0 !important;
     }
     </style>
     """,
@@ -191,16 +131,43 @@ with tab1:
             st.warning("⚠️ Please enter your name!")
         else:
             formatted_date = selected_date.strftime("%d/%m/%Y")
-            with st.spinner("Decoding cosmic grids..."):
+            # Clear previous readings cache to show local outputs even if Gemini is rate-capped
+            st.session_state.reading_cache = "LOCAL_ACTIVE"
+            st.session_state.cached_name = full_name_input
+            st.session_state.cached_date = formatted_date
+            
+            # Execute background orchestration pipeline safely
+            try:
+                from build_db import generate_gemini_numerology_reading
                 reading_output = generate_gemini_numerology_reading(formatted_date, full_name_input, selected_language)
                 st.session_state.reading_cache = reading_output
-                st.session_state.cached_name = full_name_input
-                st.session_state.cached_date = formatted_date
+            except:
+                pass
 
-    if st.session_state.reading_cache:
+    if st.session_state.cached_date:
         st.divider()
+        raw_profile = get_full_profile(st.session_state.cached_date)
+        r_num = raw_profile.get("ruling_number", "2")
+        
+        # 🌟 Your Aligned Lucky Color Vibration Visual Badge
+        st.write("### 🎨 Your Aligned Lucky Color Vibration")
+        color_meta = numerology_data.LUCKY_COLORS.get(r_num, {"color": "Violet", "hex": "#8a2be2", "meaning": "Balances your space."})
+        
+        st.markdown(
+            f"""
+            <div class="color-container">
+                <div class="color-circle" style="background-color: {color_meta['hex']}; box-shadow: 0 0 20px {color_meta['hex']};"></div>
+                <div>
+                    <h5 style='margin:0 0 5px 0; color:#00ffff !important; text-transform:uppercase;'>{color_meta['color']}</h5>
+                    <p style='margin:0; font-size:0.95rem; color:#e0dbff !important; font-style:italic;'>{color_meta['meaning']}</p>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
         
         # Render Zodiac Box
+        st.write("### 🌌 Astrological Alignment")
         z_profile = get_zodiac_sign(st.session_state.cached_date)
         st.markdown(f'<div class="zodiac-box"><h4 style="margin:0; color:#00ffff !important;">✨ {z_profile["emoji"]} SUN SIGN: {z_profile["sign"].upper()} (Element: {z_profile["element"]})</h4></div>', unsafe_allow_html=True)
         
@@ -215,7 +182,6 @@ with tab1:
         
         # Render 3x3 Grid
         st.write("### 📊 Your Pythagorean Birth Chart Grid")
-        raw_profile = get_full_profile(st.session_state.cached_date)
         grid_data = raw_profile.get("birth_chart_grid", {i: 0 for i in range(1, 10)})
         
         def make_cell(num): 
@@ -239,23 +205,23 @@ with tab1:
         with r3_c2: render_glow_box("Physical (4)", make_cell(4))
         with r3_c3: render_glow_box("Physical (7)", make_cell(7))
         
-        st.divider()
-        
-        # Export PDF Setup
-        pdf_data = create_numerology_pdf(st.session_state.cached_name, st.session_state.cached_date, st.session_state.reading_cache)
-        st.download_button(label="Download Professional PDF Report 📄", data=bytes(pdf_data), file_name=f"Report_{st.session_state.cached_name.replace(' ', '_')}.pdf", mime="application/pdf", use_container_width=True)
-        
-        st.divider()
-        st.markdown(st.session_state.reading_cache)
+        # Print AI text reading blocks if available and not capped
+        if st.session_state.reading_cache and st.session_state.reading_cache != "LOCAL_ACTIVE":
+            st.divider()
+            # Export PDF Setup
+            pdf_data = create_numerology_pdf(st.session_state.cached_name, st.session_state.cached_date, st.session_state.reading_cache)
+            st.download_button(label="Download Professional PDF Report 📄", data=bytes(pdf_data), file_name=f"Report_{st.session_state.cached_name.replace(' ', '_')}.pdf", mime="application/pdf", use_container_width=True)
+            st.divider()
+            st.markdown(st.session_state.reading_cache)
 
 # ================= TAB 2: DUAL MATRIX COMPATIBILITY LAYER =================
 with tab2:
-    if "comp_cache" not in st.session_state: 
+    if "comp_cache" not in st.session_state:
         st.session_state.comp_cache = None
-    
+
     st.write("### 👥 Calculate Dual Matrix Intersections")
     st.write("Examine how your numbers blend, collide, and support another person's matrix paths.")
-    
+
     with st.form("compatibility_form"):
         col1, col2 = st.columns(2)
         with col1:
@@ -266,19 +232,23 @@ with tab2:
             st.write("#### Person 2 (Partner/Peer)")
             name2_in = st.text_input("Second Person Full Name:", key="n2")
             date2_in = st.date_input("Second Person Birthday:", value=datetime(1988, 8, 18), key="d2")
-            
+
         submit_comp = st.form_submit_button("Calculate Aligned Intersection Matrix ⚡", use_container_width=True)
-        
+
     if submit_comp:
         if not name1_in.strip() or not name2_in.strip():
             st.warning("⚠️ Please provide full birth names for both profiles to trigger comparison.")
         else:
             d1_fmt = date1_in.strftime("%d/%m/%Y")
             d2_fmt = date2_in.strftime("%d/%m/%Y")
-            
+
             with st.spinner("Weaving comparative data pathways..."):
-                comp_output = generate_gemini_compatibility_reading(name1_in, d1_fmt, name2_in, d2_fmt, selected_language)
-                st.session_state.comp_cache = comp_output
+                try:
+                    from build_db import generate_gemini_compatibility_reading
+                    comp_output = generate_gemini_compatibility_reading(name1_in, d1_fmt, name2_in, d2_fmt, selected_language)
+                    st.session_state.comp_cache = comp_output
+                except Exception as e:
+                    st.session_state.comp_cache = f"⚠️ Gemini Quota Cap Active. Local Matrix Comparison is being engineered: {e}"
 
     if st.session_state.comp_cache:
         st.divider()
