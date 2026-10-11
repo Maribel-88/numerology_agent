@@ -17,23 +17,15 @@ st.markdown(
     """
     <style>
     .stApp { background-color: #0b081a !important; }
-    
     header[data-testid="stHeader"] {
         background-color: #0b081a !important;
         border-bottom: 1px solid rgba(147, 112, 219, 0.2) !important;
     }
-    header[data-testid="stHeader"] a, header[data-testid="stHeader"] span, header[data-testid="stHeader"] button {
-        color: #f1ecff !important;
-    }
-    
+    header[data-testid="stHeader"] a, header[data-testid="stHeader"] span, header[data-testid="stHeader"] button { color: #f1ecff !important; }
     section[data-testid="stSidebar"] {
-        background-color: #120e2b !important;
-        border-right: 1px solid rgba(147, 112, 219, 0.3) !important;
+        background-color: #120e2b !important; border-right: 1px solid rgba(147, 112, 219, 0.3) !important;
     }
-    section[data-testid="stSidebar"] p, section[data-testid="stSidebar"] span, section[data-testid="stSidebar"] label {
-        color: #f1ecff !important;
-    }
-    
+    section[data-testid="stSidebar"] p, section[data-testid="stSidebar"] span, section[data-testid="stSidebar"] label { color: #f1ecff !important; }
     h1, h2, h3, h4, h5, h6, label, p, span { color: #f1ecff !important; }
     [data-testid="stMarkdownContainer"] p, [data-testid="stMarkdownContainer"] li {
         color: #ffffff !important; font-size: 1.05rem !important; line-height: 1.6 !important;
@@ -69,25 +61,19 @@ st.markdown(
     .year-box, .zodiac-box {
         background: linear-gradient(90deg, #1f1440 0%, #29124d 100%) !important; border-left: 5px solid #ff00ff !important; padding: 20px !important; border-radius: 8px !important; margin-top: 15px !important; box-shadow: 0 4px 15px rgba(255, 0, 255, 0.1) !important;
     }
-
-    /* 🎨 NEW STYLING: Dynamic Lucky Color Output Component Block */
     .color-container {
-        background-color: #120e2b !important;
-        border: 2px solid #5a3d96 !important;
+        background-color: #120e2b !important; border: 2px solid #5a3d96 !important; border-radius: 10px !important; padding: 20px !important; margin-top: 15px !important; display: flex !important; align-items: center !important; gap: 20px !important;
+    }
+    .color-circle { width: 60px !important; height: 60px !important; border-radius: 50% !important; border: 2px solid #ffffff !important; flex-shrink: 0 !important; }
+    
+    /* Premium Gate Box Styling */
+    .premium-gate {
+        background: rgba(255, 215, 0, 0.05) !important;
+        border: 2px dashed #ffd700 !important;
         border-radius: 10px !important;
         padding: 20px !important;
-        margin-top: 15px !important;
-        display: flex !important;
-        align-items: center !important;
-        gap: 20px !important;
-    }
-    .color-circle {
-        width: 60px !important;
-        height: 60px !important;
-        border-radius: 50% !important;
-        border: 2px solid #ffffff !important;
-        box-shadow: 0 0 15px rgba(255,255,255,0.2) !important;
-        flex-shrink: 0 !important;
+        text-align: center !important;
+        margin-top: 20px !important;
     }
     </style>
     """,
@@ -97,7 +83,7 @@ st.markdown(
 st.title("🔮 CosmicVibe Advanced AI Agent")
 st.write("Unlock your unique Pythagorean configurations and interpersonal matrix structures.")
 
-# --- SIDEBAR LANGUAGE MENU WIDGET ---
+# --- SIDEBAR CONTROL CORE ---
 with st.sidebar:
     st.write("### 🌐 Language Hub")
     selected_language = st.selectbox(
@@ -106,19 +92,29 @@ with st.sidebar:
         index=0
     )
     st.divider()
-    st.caption("The AI Persona Engine automatically translates all generated narrative blocks into your selected language.")
+    
+    # 🌟 NEW FEATURE: COMMERCIAL CHECKOUT VERIFIER INSIDE SIDEBAR
+    st.write("### 🪙 Premium Portal Status")
+    if "has_paid" not in st.session_state:
+        st.session_state.has_paid = False
+        
+    if st.session_state.has_paid:
+        st.success("✅ Access Granted: UNLIMITED")
+    else:
+        st.warning("🔒 Access State: PREVIEW MODE")
+        # Direct simulation trigger for immediate offline validation testing
+        if st.button("Unlock All Features (Simulate Stripe Success) 💳"):
+            st.session_state.has_paid = True
+            st.rerun()
 
 # --- Tab Layout ---
 tab1, tab2 = st.tabs(["👤 Individual Blueprint", "👥 Relationship Compatibility"])
 
 # ================= TAB 1: INDIVIDUAL BLUEPRINT ENGINE =================
 with tab1:
-    if "reading_cache" not in st.session_state: 
-        st.session_state.reading_cache = None
-    if "cached_name" not in st.session_state: 
-        st.session_state.cached_name = ""
-    if "cached_date" not in st.session_state: 
-        st.session_state.cached_date = ""
+    if "reading_cache" not in st.session_state: st.session_state.reading_cache = None
+    if "cached_name" not in st.session_state: st.session_state.cached_name = ""
+    if "cached_date" not in st.session_state: st.session_state.cached_date = ""
 
     with st.form("numerology_form"):
         full_name_input = st.text_input("Your Full Birth Name (First, Middle, Last):", placeholder="e.g., JOHN BENJAMIN SMITH")
@@ -131,12 +127,10 @@ with tab1:
             st.warning("⚠️ Please enter your name!")
         else:
             formatted_date = selected_date.strftime("%d/%m/%Y")
-            # Clear previous readings cache to show local outputs even if Gemini is rate-capped
             st.session_state.reading_cache = "LOCAL_ACTIVE"
             st.session_state.cached_name = full_name_input
             st.session_state.cached_date = formatted_date
             
-            # Execute background orchestration pipeline safely
             try:
                 from build_db import generate_gemini_numerology_reading
                 reading_output = generate_gemini_numerology_reading(formatted_date, full_name_input, selected_language)
@@ -149,24 +143,12 @@ with tab1:
         raw_profile = get_full_profile(st.session_state.cached_date)
         r_num = raw_profile.get("ruling_number", "2")
         
-        # 🌟 Your Aligned Lucky Color Vibration Visual Badge
+        # Lucky Colors
         st.write("### 🎨 Your Aligned Lucky Color Vibration")
         color_meta = numerology_data.LUCKY_COLORS.get(r_num, {"color": "Violet", "hex": "#8a2be2", "meaning": "Balances your space."})
+        st.markdown(f'<div class="color-container"><div class="color-circle" style="background-color: {color_meta["hex"]}; box-shadow: 0 0 20px {color_meta["hex"]};"></div><div><h5 style="margin:0 0 5px 0; color:#00ffff !important; text-transform:uppercase;">{color_meta["color"]}</h5><p style="margin:0; font-size:0.95rem; color:#e0dbff !important; font-style:italic;">{color_meta["meaning"]}</p></div></div>', unsafe_allow_html=True)
         
-        st.markdown(
-            f"""
-            <div class="color-container">
-                <div class="color-circle" style="background-color: {color_meta['hex']}; box-shadow: 0 0 20px {color_meta['hex']};"></div>
-                <div>
-                    <h5 style='margin:0 0 5px 0; color:#00ffff !important; text-transform:uppercase;'>{color_meta['color']}</h5>
-                    <p style='margin:0; font-size:0.95rem; color:#e0dbff !important; font-style:italic;'>{color_meta['meaning']}</p>
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-        
-        # Render Zodiac Box
+        # Zodiac Sign
         st.write("### 🌌 Astrological Alignment")
         z_profile = get_zodiac_sign(st.session_state.cached_date)
         st.markdown(f'<div class="zodiac-box"><h4 style="margin:0; color:#00ffff !important;">✨ {z_profile["emoji"]} SUN SIGN: {z_profile["sign"].upper()} (Element: {z_profile["element"]})</h4></div>', unsafe_allow_html=True)
@@ -205,20 +187,33 @@ with tab1:
         with r3_c2: render_glow_box("Physical (4)", make_cell(4))
         with r3_c3: render_glow_box("Physical (7)", make_cell(7))
         
-        # Print AI text reading blocks if available and not capped
-        if st.session_state.reading_cache and st.session_state.reading_cache != "LOCAL_ACTIVE":
-            st.divider()
-            # Export PDF Setup
-            pdf_data = create_numerology_pdf(st.session_state.cached_name, st.session_state.cached_date, st.session_state.reading_cache)
-            st.download_button(label="Download Professional PDF Report 📄", data=bytes(pdf_data), file_name=f"Report_{st.session_state.cached_name.replace(' ', '_')}.pdf", mime="application/pdf", use_container_width=True)
-            st.divider()
-            st.markdown(st.session_state.reading_cache)
+        # 🌟 COMMERCIAL PAYWALL GUARD: Render premium data only if paid
+        if st.session_state.has_paid:
+            if st.session_state.reading_cache and st.session_state.reading_cache != "LOCAL_ACTIVE":
+                st.divider()
+                pdf_data = create_numerology_pdf(st.session_state.cached_name, st.session_state.cached_date, st.session_state.reading_cache)
+                st.download_button(label="Download Complete PDF Report 📄", data=bytes(pdf_data), file_name=f"Report_{st.session_state.cached_name.replace(' ', '_')}.pdf", mime="application/pdf", use_container_width=True)
+                st.divider()
+                st.markdown(st.session_state.reading_cache)
+        else:
+            st.markdown(
+                """
+                <div class="premium-gate">
+                    <h4 style="color: #ffd700 !important; margin-top:0;">🔒 Premium Alchemical Deep Reading Locked</h4>
+                    <p style="margin: 0; font-size: 0.95rem; color: #e0dbff !important;">
+                        Unlock your full multi-page character blueprint narrative report, vocational career lane matrix charts, 
+                        and high-resolution professional PDF download exports for only <b>£4.99</b>. Activate access token in the sidebar.
+                    </p>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
 
 # ================= TAB 2: DUAL MATRIX COMPATIBILITY LAYER =================
 with tab2:
-    if "comp_cache" not in st.session_state:
+    if "comp_cache" not in st.session_state: 
         st.session_state.comp_cache = None
-
+        
     st.write("### 👥 Calculate Dual Matrix Intersections")
     st.write("Examine how your numbers blend, collide, and support another person's matrix paths.")
 
@@ -248,11 +243,24 @@ with tab2:
                     comp_output = generate_gemini_compatibility_reading(name1_in, d1_fmt, name2_in, d2_fmt, selected_language)
                     st.session_state.comp_cache = comp_output
                 except Exception as e:
-                    st.session_state.comp_cache = f"⚠️ Gemini Quota Cap Active. Local Matrix Comparison is being engineered: {e}"
+                    st.session_state.comp_cache = f"⚠️ Gemini Quota Cap Active: {e}"
 
     if st.session_state.comp_cache:
-        st.divider()
-        st.write("### 🔮 CosmicVibe Unified Compatibility Assessment")
-        st.markdown(st.session_state.comp_cache)
+        if st.session_state.has_paid:
+            st.divider()
+            st.write("### 🔮 CosmicVibe Unified Compatibility Assessment")
+            st.markdown(st.session_state.comp_cache)
+        else:
+            st.markdown(
+                """
+                <div class="premium-gate">
+                    <h4 style="color: #ffd700 !important; margin-top:0;">🔒 Interpersonal Compatibility Report Locked</h4>
+                    <p style="margin: 0; font-size: 0.95rem; color: #e0dbff !important;">
+                        Please activate your Premium Portal token check inside the left sidebar to unlock comparative relationship assessments.
+                    </p>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
 
 st.caption("Powered by Google Gemini 3.8 Flash & Your Custom Pythagorean Local Engine.")
