@@ -21,17 +21,6 @@ st.markdown(
         background-color: #0b081a !important;
     }
     
-    /* 🌟 CRITICAL FIX: FORCE THE STARK WHITE TOP HEADER BAR TO DARK COSMIC BACKGROUND */
-    header[data-testid="stHeader"] {
-        background-color: #0b081a !important; /* Matches main deep space background */
-        border-bottom: 1px solid rgba(147, 112, 219, 0.2) !important;
-    }
-    
-    /* Force top toolbar text labels and icons to stay highly visible */
-    header[data-testid="stHeader"] a, header[data-testid="stHeader"] span, header[data-testid="stHeader"] button {
-        color: #f1ecff !important;
-    }
-    
     /* FIXING THE SIDEBAR COLORING & TEXT ACCENTS */
     section[data-testid="stSidebar"] {
         background-color: #120e2b !important; /* Deep dark purple sidebar background */
@@ -258,3 +247,42 @@ with tab1:
         
         st.divider()
         st.markdown(st.session_state.reading_cache)
+
+# ================= TAB 2: DUAL MATRIX COMPATIBILITY LAYER =================
+with tab2:
+    if "comp_cache" not in st.session_state: 
+        st.session_state.comp_cache = None
+    
+    st.write("### 👥 Calculate Dual Matrix Intersections")
+    st.write("Examine how your numbers blend, collide, and support another person's matrix paths.")
+    
+    with st.form("compatibility_form"):
+        col1, col2 = st.columns(2)
+        with col1:
+            st.write("#### Person 1 (You)")
+            name1_in = st.text_input("First Person Full Name:", key="n1")
+            date1_in = st.date_input("First Person Birthday:", value=datetime(1985, 5, 12), key="d1")
+        with col2:
+            st.write("#### Person 2 (Partner/Peer)")
+            name2_in = st.text_input("Second Person Full Name:", key="n2")
+            date2_in = st.date_input("Second Person Birthday:", value=datetime(1988, 8, 18), key="d2")
+            
+        submit_comp = st.form_submit_button("Calculate Aligned Intersection Matrix ⚡", use_container_width=True)
+        
+    if submit_comp:
+        if not name1_in.strip() or not name2_in.strip():
+            st.warning("⚠️ Please provide full birth names for both profiles to trigger comparison.")
+        else:
+            d1_fmt = date1_in.strftime("%d/%m/%Y")
+            d2_fmt = date2_in.strftime("%d/%m/%Y")
+            
+            with st.spinner("Weaving comparative data pathways..."):
+                comp_output = generate_gemini_compatibility_reading(name1_in, d1_fmt, name2_in, d2_fmt, selected_language)
+                st.session_state.comp_cache = comp_output
+
+    if st.session_state.comp_cache:
+        st.divider()
+        st.write("### 🔮 CosmicVibe Unified Compatibility Assessment")
+        st.markdown(st.session_state.comp_cache)
+
+st.caption("Powered by Google Gemini 3.8 Flash & Your Custom Pythagorean Local Engine.")
