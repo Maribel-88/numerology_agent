@@ -142,6 +142,11 @@ with tab1:
         st.divider()
         raw_profile = get_full_profile(st.session_state.cached_date)
         r_num = raw_profile.get("ruling_number", "2")
+
+         # 🌟 FIXED: SHOW THE RULING NUMBER HEADLINE ON SCREEN AGAIN
+        st.write(f"## 🪐 Your Core Ruling Number: **{r_num}**")
+        st.caption("Dr. Phillips' core vocational lifecycle marker dictated by your birth coordinates.")
+        st.divider()
         
         # Lucky Colors
         st.write("### 🎨 Your Aligned Lucky Color Vibration")
